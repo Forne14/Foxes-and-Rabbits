@@ -8,7 +8,7 @@ import java.util.Iterator;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Squirrel extends Animal
+public class Squirrel extends TheHunted
 {
     // Characteristics shared by all squirrels (class variables).
 
@@ -24,7 +24,7 @@ public class Squirrel extends Animal
     private static final Random rand = Randomizer.getRandom();
     // The food value of a single rabbit. In effect, this is the
     // number of steps a squirrel can go before it has to eat again.
-    private static final int OAKTREE_FOOD_VALUE = 5;
+    private static final int OAKTREE_FOOD_VALUE = 7;
     
     // Individual characteristics (instance fields).
     
@@ -90,34 +90,13 @@ public class Squirrel extends Animal
                 Squirrel squirrel = (Squirrel) animal;
                 if(squirrel.isAlive()) { 
                     squirrel.setDead();
-                    foodLevel = OAKTREE_FOOD_VALUE;
+                    foodLevel += OAKTREE_FOOD_VALUE;
+                                        System.out.println("Squirrel has eaten");
                     return where;
                 }
             }
         }
         return null;
-    }
-    
-    /**
-     * Increase the age. This could result in the squirrel's death.
-     */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
-            setDead();
-        }
-    }
-    
-    /**
-     * Make this squirrel more hungry. This could result in the squirrel's death.
-     */
-    private void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
-        }
     }
     
     /**
@@ -136,29 +115,9 @@ public class Squirrel extends Animal
             Location loc = free.remove(0);
             Squirrel young = new Squirrel(false, field, loc);
             newSquirrels.add(young);
+                                System.out.println("New Squirrels");
         }
     }
-        
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
-    {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
-    }
-
-    /**
-     * A Squirrel can breed if it has reached the breeding age.
-     */
-    private boolean canBreed()
-    {
-        return age >= BREEDING_AGE;
-    }
+    
 }
 

@@ -11,7 +11,7 @@ public abstract class Animal
     // Whether the animal is alive or not.
     private boolean alive;
     // The animal's field.
-    private Field field;
+    protected Field field;
     // The animal's position in the field.
     private Location location;
     

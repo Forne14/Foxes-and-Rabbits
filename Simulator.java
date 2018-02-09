@@ -19,10 +19,14 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    private static final double FOX_CREATION_PROBABILITY = 0.05;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
-
+    private static final double RABBIT_CREATION_PROBABILITY = 0.08;  
+    private static final double SQUIRREL_CREATION_PROBABILITY = 0.08;
+    private static final double BEAR_CREATION_PROBABILITY = 0.04;
+    private static final double OWL_CREATION_PROBABILITY = 0.06;
+    private static final double OAKTREE_CREATION_PROBABILITY = 0.03;
+    
     // List of animals in the field.
     private List<Animal> animals;
     // The current state of the field.
@@ -103,6 +107,7 @@ public class Simulator
         // Provide space for newborn animals.
         List<Animal> newAnimals = new ArrayList<>();        
         // Let all rabbits act.
+        System.out.println(animals.size());
         for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
             Animal animal = it.next();
             animal.act(newAnimals);
@@ -145,11 +150,34 @@ public class Simulator
                     animals.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location);
-                    animals.add(rabbit);
+                   Location location = new Location(row, col);
+                   Rabbit rabbit = new Rabbit(true, field, location);
+                   animals.add(rabbit);
                 }
-                // else leave the location empty.
+                else if(rand.nextDouble()<= SQUIRREL_CREATION_PROBABILITY)
+                {
+                    Location location = new Location(row, col);
+                    Squirrel squirrel = new Squirrel(true, field, location);
+                    animals.add(squirrel);
+                }
+                else if(rand.nextDouble()<= OWL_CREATION_PROBABILITY)
+                {
+                    Location location = new Location(row, col);
+                    Owl owl= new Owl(true, field, location);
+                    animals.add(owl);
+                }
+                else if(rand.nextDouble()<= BEAR_CREATION_PROBABILITY)
+                {
+                    Location location = new Location(row, col);
+                    Bear bear= new Bear(true, field, location);
+                    animals.add(bear);
+                }
+                else if(rand.nextDouble()<= OAKTREE_CREATION_PROBABILITY)
+                {
+                    Location location = new Location(row, col);
+                    OakTree oakTree= new OakTree(true, field, location);
+                    animals.add(oakTree);
+                }
             }
         }
     }

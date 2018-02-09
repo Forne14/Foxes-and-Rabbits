@@ -14,10 +14,11 @@ public class OakTree extends Animal
     // Characteristics shared by all foxes (class variables).
     
     // The age to which a fox can live.
-    private static final int MAX_AGE = 1000000;
+    private static final int MAX_AGE = 500;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
+    //the likelihood of a tree growing in an unocupied field.
+    private static final double GROWING_PROBABILITY = 0.001;
     // Individual characteristics (instance fields).
     // The fox's age.
     private int age;
@@ -52,7 +53,8 @@ public class OakTree extends Animal
     {
         incrementAge();
         if(isAlive()) {
-            giveBirth(newOakTrees);            
+            treeGrow(newOakTrees);       
+            Location newLocation = getField().freeAdjacentLocation(getLocation());
             if(newLocation == null) { 
                 // No food found - try to move to a free location.
                 newLocation = getField().freeAdjacentLocation(getLocation());
@@ -67,7 +69,35 @@ public class OakTree extends Animal
             }
         }
     }
-
+    
+    /**
+     * Check whether or not this rabbit is to give birth at this step.
+     * New births will be made into free adjacent locations.
+     * @param newRabbits A list to return newly born rabbits.
+     */
+    private void treeGrow(List<Animal> newOakTree)
+    {
+        // New rabbits are born into adjacent locations.
+        // Get a list of adjacent free locations.
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int sappling = plantTree();
+        for(int b = 0; b < sappling && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            OakTree young = new OakTree(false, field, loc);
+            newOakTree.add(young);
+        }
+    }
+    
+    private int plantTree()
+    {
+        int births = 0;
+        if(rand.nextDouble() <= GROWING_PROBABILITY) {
+            births = 1;
+        }
+        return births;
+    }
+    
     /**
      * Increase the age. This could result in the fox's death.
      */
@@ -79,23 +109,4 @@ public class OakTree extends Animal
         }
     }
     
-    
-    /**
-     * Check whether or not this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
-     */
-    private void giveBirth(List<Animal> newOakTrees)
-    {
-        // New Trees are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            OakTree young = new OakTree(false, field, loc);
-            OakTree.add(young);
-        }
-    }
 }

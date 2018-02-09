@@ -7,32 +7,11 @@ import java.util.Random;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Bear extends Animal
+public class Bear extends TheHunter
 {
-    // Characteristics shared by all bear (class variables).
-    
-    // The age at which a bear can start to breed.
-    private static final int BREEDING_AGE = 60;
-    // The age to which a fox can live.
-    private static final int MAX_AGE = 600;
-    // The likelihood of a bear breeding.
-    private static final double BREEDING_PROBABILITY = 0.04;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a bear can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 9;
     // The food value of a single fox. In effect, this is the
     // number of steps a bear can go before it has to eat again.
-    private static final int FOX_FOOD_VALUE = 15;
-    // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
-    
-    // Individual characteristics (instance fields).
-    // The bear age.
-    private int age;
-    // The bear's food level, which is increased by eating everything.
-    private int foodLevel;
+    private static final int RABBIT_FOOD_VALUE = 15;
 
     /**
      * Constructor for objects of class Bear
@@ -40,13 +19,17 @@ public class Bear extends Animal
     public Bear(boolean randomAge, Field field, Location location)
     {
         super(field,location);
+        BREEDING_AGE = 40;
+        MAX_AGE = 600;
+        BREEDING_PROBABILITY = 0.08;
+        MAX_LITTER_SIZE = 4;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
-            foodLevel = rand.nextInt(RABBIT_FOOD_VALUE+FOX_FOOD_VALUE) ;
+            foodLevel = rand.nextInt(RABBIT_FOOD_VALUE) ;
         }
         else {
             age = 0;
-            foodLevel = RABBIT_FOOD_VALUE+FOX_FOOD_VALUE;
+            foodLevel = RABBIT_FOOD_VALUE;
         }
         
     }
@@ -69,9 +52,10 @@ public class Bear extends Animal
             }
             else {
                 // Overcrowding.
-                setDead();
+                //setDead();
+                System.out.println("no space");
             }
-        }
+        } 
     }
     
     /**
@@ -87,40 +71,17 @@ public class Bear extends Animal
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit || animal instanceof Fox) {
+            if(animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
-                Fox fox = (Fox) animal;
-                if(rabbit.isAlive() || fox.isAlive()) { 
+                if(rabbit.isAlive()) { 
                     rabbit.setDead();
-                    fox.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE+FOX_FOOD_VALUE;
+                    foodLevel += RABBIT_FOOD_VALUE;
+                    System.out.println("Bear has eaten");
                     return where;
                 }
             }
         }
         return null;
-    }
-    
-    /**
-     * Increase the age. This could result in the bear's death.
-     */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
-            setDead();
-        }
-    }
-    
-    /**
-     * Make this fox more hungry. This could result in the bear's death.
-     */
-    private void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
-        }
     }
     
     /**
@@ -137,30 +98,9 @@ public class Bear extends Animal
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
+            Bear young = new Bear(false, field, loc);
             newBears.add(young);
         }
-    }
-        
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
-    {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
-    }
-
-    /**
-     * A fox can breed if it has reached the breeding age.
-     */
-    private boolean canBreed()
-    {
-        return age >= BREEDING_AGE;
+        System.out.println("New bears have been born");
     }
 }
