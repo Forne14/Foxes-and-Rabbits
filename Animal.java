@@ -1,5 +1,6 @@
 import java.util.List;
-
+import java.util.Iterator;
+import java.util.Random;
 /**
  * A class representing shared characteristics of animals.
  * 
@@ -8,13 +9,10 @@ import java.util.List;
  */
 public abstract class Animal extends Living
 {
-    // Whether the animal is alive or not.
-    private boolean alive;
-    // The animal's field.
-    protected Field field;
-    // The animal's position in the field.
-    private Location location;
-    
+    protected static final double GENDER_PROBABILITY = 0.5;
+    protected String gender;
+     // A shared random number generator to control breeding.
+    protected static Random rand = new Random();
     /**
      * Create a new animal at location in field.
      * 
@@ -24,37 +22,6 @@ public abstract class Animal extends Living
     public Animal(Field field, Location location)
     {
         super(field, location);
-    }
-    
-    
-    /**
-     * Make this animal act - that is: make it do
-     * whatever it wants/needs to do.
-     * @param newAnimals A list to receive newly born animals.
-     */
-    abstract public void act(List<Animal> newAnimals);
-
-    /**
-     * Check whether the animal is alive or not.
-     * @return true if the animal is still alive.
-     */
-    protected boolean isAlive()
-    {
-        return alive;
-    }
-
-    /**
-     * Indicate that the animal is no longer alive.
-     * It is removed from the field.
-     */
-    protected void setDead()
-    {
-        alive = false;
-        if(location != null) {
-            field.clear(location);
-            location = null;
-            field = null;
-        }
     }
 
     /**
@@ -67,24 +34,53 @@ public abstract class Animal extends Living
     }
     
     /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
-     */
-    protected void setLocation(Location newLocation)
-    {
-        if(location != null) {
-            field.clear(location);
-        }
-        location = newLocation;
-        field.place(this, newLocation);
-    }
-    
-    /**
      * Return the animal's field.
      * @return The animal's field.
      */
     protected Field getField()
     {
-        return field;
+         return field;
+    }
+    
+    protected boolean generateRandomGender()
+    {
+        return rand.nextBoolean();
+    }
+    
+    protected void setGender(boolean sex)
+    {
+        if(sex)
+        {
+            gender = "f";
+        }
+        else
+        {
+            gender = "m";
+        }
+    }
+    
+    private Location findMate()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object animal = field.getObjectAt(where);
+            if(animal.getGender().equals()) {
+                Rabbit rabbit = (Rabbit) animal;
+                if(rabbit.isAlive()) { 
+                    rabbit.setDead();
+                    foodLevel = RABBIT_FOOD_VALUE;
+                    return where;
+                }
+            }
+        }
+        return null;
+    }
+    
+    protected String getGender()
+    {
+        return gender;
     }
 }

@@ -1,11 +1,11 @@
-
+import java.util.List;
 /**
  * Write a description of class Living here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Living
+public abstract class Living
 {
     // Whether the plant is living or not.
     protected boolean alive;
@@ -32,6 +32,13 @@ public class Living
     {
         return alive;
     }
+    
+    /**
+     * Make this animal act - that is: make it do
+     * whatever it wants/needs to do.
+     * @param newAnimals A list to receive newly born animals.
+     */
+    abstract public void act(List<Living> newLiving);
 
     /**
      * Indicate that the living is no longer living.
@@ -59,4 +66,5 @@ public class Living
         location = newLocation;
         field.place(this, newLocation);
     }
+   
 }

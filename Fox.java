@@ -27,7 +27,7 @@ public class Fox extends TheHunter
      */
     public Fox(boolean randomAge, Field field, Location location)
     {
-        super(field, location);
+        super(field, location);  
         BREEDING_AGE = 15;
         MAX_AGE = 150;
         BREEDING_PROBABILITY = 0.02;
@@ -50,7 +50,7 @@ public class Fox extends TheHunter
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Animal> newFoxes)
+    public void act(List<Living> newFoxes)
     {
         incrementAge();
         incrementHunger();
@@ -103,7 +103,7 @@ public class Fox extends TheHunter
      * New births will be made into free adjacent locations.
      * @param newFoxes A list to return newly born foxes.
      */
-    private void giveBirth(List<Animal> newFoxes)
+    private void giveBirth(List<Living> newFoxes)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -113,6 +113,7 @@ public class Fox extends TheHunter
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
             Fox young = new Fox(false, field, loc);
+            young.setGender(generateRandomGender());
             newFoxes.add(young);
         }
     }

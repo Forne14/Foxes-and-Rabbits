@@ -34,7 +34,7 @@ public class Bear extends TheHunter
         
     }
     
-    public void act(List<Animal> newBears)
+    public void act(List<Living> newBears)
     {
         incrementAge();
         incrementHunger();
@@ -89,7 +89,7 @@ public class Bear extends TheHunter
      * New births will be made into free adjacent locations.
      * @param newFoxes A list to return newly born foxes.
      */
-    private void giveBirth(List<Animal> newBears)
+    private void giveBirth(List<Living> newBears)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.

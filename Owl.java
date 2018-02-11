@@ -35,7 +35,7 @@ public class Owl extends TheHunter
         
     }
     
-    public void act(List<Animal> newOwls)
+    public void act(List<Living> newOwls)
     {
         incrementAge();
         incrementHunger();
@@ -92,7 +92,7 @@ public class Owl extends TheHunter
      * New births will be made into free adjacent locations.
      * @param newFoxes A list to return newly born foxes.
      */
-    private void giveBirth(List<Animal> newOwls)
+    private void giveBirth(List<Living> newOwls)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.

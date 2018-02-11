@@ -10,10 +10,7 @@ import java.util.Iterator;
  */
 public class Squirrel extends TheHunted
 {
-    
     private static final int OAKTREE_FOOD_VALUE = 7;
-   
-
     /**
      * Create a new squirrel. A squirrel may be created with age
      * zero (a new born) or with a random age.
@@ -34,7 +31,7 @@ public class Squirrel extends TheHunted
         }
     }
     
-    public void act(List<Animal> newSquirrels)
+    public void act(List<Living> newSquirrels)
     {
         incrementAge();
         incrementHunger();
@@ -88,7 +85,7 @@ public class Squirrel extends TheHunted
      * New births will be made into free adjacent locations.
      * @param newSquirreles A list to return newly born Squirreles.
      */
-    private void giveBirth(List<Animal> newSquirrels)
+    private void giveBirth(List<Living> newSquirrels)
     {
         // New Squirreles are born into adjacent locations.
         // Get a list of adjacent free locations.

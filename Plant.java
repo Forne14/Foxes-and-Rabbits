@@ -1,38 +1,44 @@
-
+import java.util.List;
+import java.util.Iterator;
+import java.util.Random;
 /**
  * Write a description of class Plant here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Plant extends Alive
+public abstract class Plant extends Living
 {
-    // Whether the plant is alive or not.
-    private boolean alive;
-    // The plant's field.
-    protected Field field;
-    // The plant's position in the field.
-    private Location location;
+    // The age to which a fox can live
+    protected static int MAX_AGE;
+    // A shared random number generator to control breeding.
+    protected static Random rand = Randomizer.getRandom();
+    //the likelihood of a tree growing in an unocupied field.
+    protected static double GROWING_PROBABILITY;
 
     /**
      * Constructor for objects of class Plant
      */
     public Plant(Field field, Location location)
     {
-        alive = true;
-        this.field = field;
-        setLocation(location);
+        super(field, location);
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+    
+        /**
+     * Return the animal's location.
+     * @return The animal's location.
      */
-    public int sampleMethod(int y)
+    protected Location getLocation()
     {
-        // put your code here
-        return x + y;
+        return location;
+    }
+    
+    /**
+     * Return the animal's field.
+     * @return The animal's field.
+     */
+    protected Field getField()
+    {
+        return field;
     }
 }

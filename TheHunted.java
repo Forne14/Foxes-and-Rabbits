@@ -32,7 +32,7 @@ public abstract class TheHunted extends Animal
      */
     public TheHunted(Field field, Location location)
     {
-        super(field, location);
+        super(field, location); 
     }
     
     /**

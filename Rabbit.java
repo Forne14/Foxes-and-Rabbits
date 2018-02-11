@@ -36,7 +36,7 @@ public class Rabbit extends TheHunted
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void act(List<Animal> newRabbits)
+    public void act(List<Living> newRabbits)
     {
         incrementAge();
         if(isAlive()) {
@@ -58,7 +58,7 @@ public class Rabbit extends TheHunted
      * New births will be made into free adjacent locations.
      * @param newRabbits A list to return newly born rabbits.
      */
-    private void giveBirth(List<Animal> newRabbits)
+    private void giveBirth(List<Living> newRabbits)
     {
         // New rabbits are born into adjacent locations.
         // Get a list of adjacent free locations.

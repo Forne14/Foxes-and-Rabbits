@@ -13,13 +13,7 @@ public class OakTree extends Plant
 {
     // Characteristics shared by all foxes (class variables).
     
-    // The age to which a fox can live.
-    private static final int MAX_AGE = 500;
-    // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
-    //the likelihood of a tree growing in an unocupied field.
-    private static final double GROWING_PROBABILITY = 0.001;
-    // Individual characteristics (instance fields).
+
     // The fox's age.
     private int age;
 
@@ -34,6 +28,8 @@ public class OakTree extends Plant
     public OakTree(boolean randomAge, Field field, Location location)
     {
         super(field, location);
+        MAX_AGE = 500;
+        GROWING_PROBABILITY = 0.001; 
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
@@ -49,7 +45,7 @@ public class OakTree extends Plant
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Animal> newOakTrees)
+    public void act(List<Living> newOakTrees)
     {
         incrementAge();
         if(isAlive()) {
@@ -75,7 +71,7 @@ public class OakTree extends Plant
      * New births will be made into free adjacent locations.
      * @param newRabbits A list to return newly born rabbits.
      */
-    private void treeGrow(List<Animal> newOakTree)
+    private void treeGrow(List<Living> newOakTree)
     {
         // New rabbits are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -97,7 +93,7 @@ public class OakTree extends Plant
         }
         return births;
     }
-    
+     
     /**
      * Increase the age. This could result in the fox's death.
      */

@@ -78,5 +78,7 @@ public abstract class TheHunter extends Animal
     protected boolean canBreed()
     {
         return age >= BREEDING_AGE;
+        
+        
     }
 }

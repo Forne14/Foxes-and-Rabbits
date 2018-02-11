@@ -11,7 +11,7 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Simulator
+public class Simulator 
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
@@ -28,7 +28,7 @@ public class Simulator
     private static final double OAKTREE_CREATION_PROBABILITY = 0.03;
     
     // List of animals in the field.
-    private List<Animal> animals;
+    private List<Living> animals;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -105,11 +105,11 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<>();        
+        List<Living> newAnimals = new ArrayList<>();        
         // Let all rabbits act.
         System.out.println(animals.size());
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
+        for(Iterator<Living> it = animals.iterator(); it.hasNext(); ) {
+            Living animal = it.next();
             animal.act(newAnimals);
             if(! animal.isAlive()) {
                 it.remove();
