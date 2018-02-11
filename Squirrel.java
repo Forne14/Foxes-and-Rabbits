@@ -10,28 +10,9 @@ import java.util.Iterator;
  */
 public class Squirrel extends TheHunted
 {
-    // Characteristics shared by all squirrels (class variables).
-
-    // The age at which a squirrel can start to breed.
-    private static final int BREEDING_AGE = 15;
-    // The age to which a squirrel can live.
-    private static final int MAX_AGE = 120;
-    // The likelihood of a squirrel breeding.
-    private static final double BREEDING_PROBABILITY = 0.40;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 6;
-    // A shared random number generator to control breeding.
-    private static final Random rand = Randomizer.getRandom();
-    // The food value of a single rabbit. In effect, this is the
-    // number of steps a squirrel can go before it has to eat again.
+    
     private static final int OAKTREE_FOOD_VALUE = 7;
-    
-    // Individual characteristics (instance fields).
-    
-    // The squirrel's age.
-    private int age;
-    // The squirrel's food level, which is increased by eating everything.
-    private int foodLevel;
+   
 
     /**
      * Create a new squirrel. A squirrel may be created with age
@@ -44,7 +25,10 @@ public class Squirrel extends TheHunted
     public Squirrel(boolean randomAge, Field field, Location location)
     {
         super(field, location);
-        age = 0;
+        MAX_AGE = 120;
+        BREEDING_AGE = 15;
+        BREEDING_PROBABILITY = 0.40;
+        MAX_LITTER_SIZE = 6;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }

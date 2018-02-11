@@ -9,7 +9,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class OakTree extends Animal
+public class OakTree extends Plant
 {
     // Characteristics shared by all foxes (class variables).
     

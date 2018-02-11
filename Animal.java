@@ -6,7 +6,7 @@ import java.util.List;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public abstract class Animal
+public abstract class Animal extends Living
 {
     // Whether the animal is alive or not.
     private boolean alive;
@@ -23,10 +23,9 @@ public abstract class Animal
      */
     public Animal(Field field, Location location)
     {
-        alive = true;
-        this.field = field;
-        setLocation(location);
+        super(field, location);
     }
+    
     
     /**
      * Make this animal act - that is: make it do
