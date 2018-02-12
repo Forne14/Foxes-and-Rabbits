@@ -10,7 +10,7 @@ import java.util.Random;
 public abstract class Animal extends Living
 {
     protected static final double GENDER_PROBABILITY = 0.5;
-    protected String gender;
+    protected boolean gender;
      // A shared random number generator to control breeding.
     protected static Random rand = new Random();
     /**
@@ -19,9 +19,10 @@ public abstract class Animal extends Living
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location)
+    public Animal(Field field, Location location, boolean gender)
     {
         super(field, location);
+        this.gender = gender;
     }
 
     /**
@@ -47,39 +48,41 @@ public abstract class Animal extends Living
         return rand.nextBoolean();
     }
     
-    protected void setGender(boolean sex)
+    protected boolean setGender(boolean female)
     {
-        if(sex)
+        if(female)
         {
-            gender = "f";
+            return gender = true;
         }
         else
         {
-            gender = "m";
+            return gender = false;
         }
     }
     
-    private Location findMate()
+    /*protected boolean findMate()
     {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if(animal.getGender().equals()) {
-                Rabbit rabbit = (Rabbit) animal;
-                if(rabbit.isAlive()) { 
-                    rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
-                    return where;
-                }
+            Object surroundingAnimal = field.getObjectAt(where);
+            Animal mate = (Animal) surroundingAnimal;
+            boolean currentAnimalGender = getGender(); 
+            if(this.getGender() != mate.getGender()) {   
+                 return true;
+            }
+            else{ 
+                return false;
             }
         }
-        return null;
+        return false; 
     }
+    */
+
     
-    protected String getGender()
+    protected boolean getGender()
     {
         return gender;
     }

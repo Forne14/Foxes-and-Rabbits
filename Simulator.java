@@ -35,6 +35,7 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+    protected static Random rand = new Random();
     
     /**
      * Construct a simulation field with default size.
@@ -146,30 +147,30 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
+                    Fox fox = new Fox(true, field, location, rand.nextBoolean());
                     animals.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                    Location location = new Location(row, col);
-                   Rabbit rabbit = new Rabbit(true, field, location);
+                   Rabbit rabbit = new Rabbit(true, field, location, rand.nextBoolean());
                    animals.add(rabbit);
                 }
                 else if(rand.nextDouble()<= SQUIRREL_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    Squirrel squirrel = new Squirrel(true, field, location);
+                    Squirrel squirrel = new Squirrel(true, field, location, rand.nextBoolean());
                     animals.add(squirrel);
                 }
                 else if(rand.nextDouble()<= OWL_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    Owl owl= new Owl(true, field, location);
+                    Owl owl= new Owl(true, field, location, rand.nextBoolean());
                     animals.add(owl);
                 }
                 else if(rand.nextDouble()<= BEAR_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    Bear bear= new Bear(true, field, location);
+                    Bear bear= new Bear(true, field, location, rand.nextBoolean());
                     animals.add(bear);
                 }
                 else if(rand.nextDouble()<= OAKTREE_CREATION_PROBABILITY)

@@ -17,9 +17,9 @@ public class Owl extends TheHunter
     /**
      * Constructor for objects of class owl
      */
-    public Owl(boolean randomAge, Field field, Location location)
+    public Owl(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field,location);
+        super(field,location, gender);
         BREEDING_AGE =30;
         MAX_AGE = 300;
         BREEDING_PROBABILITY = 0.8;
@@ -86,7 +86,6 @@ public class Owl extends TheHunter
         return null; 
     }
     
-    
     /**
      * Check whether or not this fox is to give birth at this step.
      * New births will be made into free adjacent locations.
@@ -101,9 +100,9 @@ public class Owl extends TheHunter
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Owl young = new Owl(false, field, loc);
+            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
             newOwls.add(young);
-                                System.out.println("New owls");
+            System.out.println("New owls");
         }
     } 
 }

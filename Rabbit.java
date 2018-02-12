@@ -19,9 +19,9 @@ public class Rabbit extends TheHunted
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location)
+    public Rabbit(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field, location);
+        super(field, location, gender);
         BREEDING_AGE = 5;
         MAX_AGE = 40;
         BREEDING_PROBABILITY = 0.04;
@@ -67,7 +67,7 @@ public class Rabbit extends TheHunted
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc);
+            Rabbit young = new Rabbit(false, field, loc, gender);
             newRabbits.add(young);
         }
     }

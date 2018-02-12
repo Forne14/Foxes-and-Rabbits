@@ -16,9 +16,9 @@ public class Bear extends TheHunter
     /**
      * Constructor for objects of class Bear
      */
-    public Bear(boolean randomAge, Field field, Location location)
+    public Bear(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field,location);
+        super(field,location, gender);
         BREEDING_AGE = 40;
         MAX_AGE = 600;
         BREEDING_PROBABILITY = 0.08;
@@ -98,7 +98,7 @@ public class Bear extends TheHunter
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Bear young = new Bear(false, field, loc);
+            Bear young = new Bear(false, field, loc, setGender(generateRandomGender())); 
             newBears.add(young);
         }
         System.out.println("New bears have been born");

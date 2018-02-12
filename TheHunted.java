@@ -30,9 +30,9 @@ public abstract class TheHunted extends Animal
     /**
      * Constructor for objects of class Hunted
      */
-    public TheHunted(Field field, Location location)
+    public TheHunted(Field field, Location location, boolean gender)
     {
-        super(field, location); 
+        super(field, location, gender); 
     }
     
     /**

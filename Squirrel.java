@@ -19,9 +19,9 @@ public class Squirrel extends TheHunted
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Squirrel(boolean randomAge, Field field, Location location)
+    public Squirrel(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field, location);
+        super(field, location, gender);
         MAX_AGE = 120;
         BREEDING_AGE = 15;
         BREEDING_PROBABILITY = 0.40;
@@ -94,7 +94,7 @@ public class Squirrel extends TheHunted
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Squirrel young = new Squirrel(false, field, loc);
+            Squirrel young = new Squirrel(false, field, loc, gender);
             newSquirrels.add(young);
                                 System.out.println("New Squirrels");
         }

@@ -25,9 +25,9 @@ public class Fox extends TheHunter
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public Fox(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field, location);  
+        super(field, location, gender);  
         BREEDING_AGE = 15;
         MAX_AGE = 150;
         BREEDING_PROBABILITY = 0.02;
@@ -97,24 +97,29 @@ public class Fox extends TheHunter
         }
         return null;
     }
-    
-    /**
-     * Check whether or not this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
-     */
-    private void giveBirth(List<Living> newFoxes)
+
+    private void giveBirth(List<Living> newFoxes) 
     {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
         Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
-            young.setGender(generateRandomGender());
-            newFoxes.add(young);
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object surroundingAnimal = field.getObjectAt(where);
+            if(where != null) 
+            {
+            Animal mate = (Animal) surroundingAnimal;
+            if(this.getGender() != mate.getGender()) {
+                int births = breed();
+                for(int b = 0; b < births && adjacent.size() > 0; b++) {
+                    Location loc = adjacent.remove(0);
+                    Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
+                    newFoxes.add(young); 
+                }  
+            }
         }
+       
+    }
+       
     }
 }

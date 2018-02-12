@@ -30,9 +30,9 @@ public abstract class TheHunter extends Animal
     /**
      * Constructor for objects of class Predator
      */
-    public TheHunter(Field field, Location location)
+    public TheHunter(Field field, Location location, boolean gender)
     {
-        super(field, location);
+        super(field, location, gender);
     }
     
     /**
@@ -66,7 +66,7 @@ public abstract class TheHunter extends Animal
     protected int breed()
     {
         int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if(canBreed()  && rand.nextDouble() <= BREEDING_PROBABILITY) { 
             births = rand.nextInt(MAX_LITTER_SIZE) + 1;
         }
         return births;
