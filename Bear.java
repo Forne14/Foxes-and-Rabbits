@@ -59,7 +59,7 @@ public class Bear extends TheHunter
     }
     
     /**
-     * Look for Foxes or Rabbits adjacent to the current location.
+     * Look for Beares or Rabbits adjacent to the current location.
      * Only the first live prey is eaten.
      * @return Where food was found, or null if it wasn't.
      */
@@ -76,7 +76,7 @@ public class Bear extends TheHunter
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
                     foodLevel += RABBIT_FOOD_VALUE;
-                    System.out.println("Bear has eaten");
+                    System.out.println("Bear has eaten a rabbit");
                     return where;
                 }
             }
@@ -87,20 +87,35 @@ public class Bear extends TheHunter
     /**
      * Check whether or not this fox is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newBears A list to return newly born foxes.
      */
-    private void giveBirth(List<Living> newBears)
+    private void giveBirth(List<Living> newBears) 
     {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
         Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Bear young = new Bear(false, field, loc, setGender(generateRandomGender())); 
-            newBears.add(young);
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            if(where != null) 
+            {
+                Object surroundingAnimal = field.getObjectAt(where);
+                if (surroundingAnimal != null && surroundingAnimal instanceof Bear) {
+                    Bear mate = (Bear) surroundingAnimal;
+                    if(this.getGender() != mate.getGender()) {
+                        int births = breed();
+                        for(int b = 0; b < births && adjacent.size() > 0; b++) {
+                            if (free.size() == 0) {
+                                break;
+                            }
+                            Location loc = free.remove(0);
+                            Bear young = new Bear(false, field, loc, setGender(generateRandomGender()));
+                            newBears.add(young); 
+                            System.out.println("Bear has given birth");
+                        }   
+                    }
+                }
+            }     
         }
-        System.out.println("New bears have been born");
     }
 }

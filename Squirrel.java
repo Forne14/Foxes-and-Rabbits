@@ -66,13 +66,12 @@ public class Squirrel extends TheHunted
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
-            Object animal = field.getObjectAt(where);
-            if(animal instanceof Squirrel) {
-                Squirrel squirrel = (Squirrel) animal;
-                if(squirrel.isAlive()) { 
-                    squirrel.setDead();
+            Object plant = (Plant) field.getObjectAt(where);
+            if(plant instanceof OakTree) {
+                OakTree tree = (OakTree) plant;
+                if(tree.isAlive()) {    
                     foodLevel += OAKTREE_FOOD_VALUE;
-                                        System.out.println("Squirrel has eaten");
+                    System.out.println("Squirrel has eaten");
                     return where;
                 }
             }
@@ -80,23 +79,33 @@ public class Squirrel extends TheHunted
         return null;
     }
     
-    /**
-     * Check whether or not this Squirrel is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newSquirreles A list to return newly born Squirreles.
-     */
-    private void giveBirth(List<Living> newSquirrels)
+    private void giveBirth(List<Living> newSquirrels) 
     {
-        // New Squirreles are born into adjacent locations.
-        // Get a list of adjacent free locations.
         Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Squirrel young = new Squirrel(false, field, loc, gender);
-            newSquirrels.add(young);
-                                System.out.println("New Squirrels");
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next(); 
+            if(where != null) 
+            {
+                Object surroundingAnimal = field.getObjectAt(where);
+                if (surroundingAnimal != null && surroundingAnimal instanceof Squirrel) {
+                    Squirrel mate = (Squirrel) surroundingAnimal;
+                    if(this.getGender() != mate.getGender()) {
+                        int births = breed();
+                        for(int b = 0; b < births && adjacent.size() > 0; b++) {
+                            if (free.size() == 0) {
+                                break;
+                            }
+                            Location loc = free.remove(0);
+                            Squirrel young = new Squirrel(false, field, loc, setGender(generateRandomGender()));
+                            newSquirrels.add(young); 
+                            System.out.println("Squirrel has given birth");
+                        }  
+                    } 
+                }
+            }     
         }
     }
     

@@ -78,7 +78,7 @@ public class Owl extends TheHunter
                 if(squirrel.isAlive()) { 
                     squirrel.setDead();
                     foodLevel += SQUIRREL_FOOD_VALUE;
-                                        System.out.println("owl has eaten");
+                                        System.out.println("owl has eaten a squirrel");
                     return where;
                 }
             }
@@ -86,24 +86,34 @@ public class Owl extends TheHunter
         return null; 
     }
     
-    /**
-     * Check whether or not this fox is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
-     */
-    private void giveBirth(List<Living> newOwls)
+    private void giveBirth(List<Living> newOwls) 
     {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
         Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
-            newOwls.add(young);
-            System.out.println("New owls");
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next(); 
+            if(where != null) 
+            {
+                Object surroundingAnimal = field.getObjectAt(where);
+                if (surroundingAnimal != null && surroundingAnimal instanceof Owl) {
+                    Owl mate = (Owl) surroundingAnimal;
+                    if(this.getGender() != mate.getGender()) {
+                        int births = breed();
+                        for(int b = 0; b < births && adjacent.size() > 0; b++) {
+                            if (free.size() == 0) {
+                                break;
+                            }
+                            Location loc = free.remove(0);
+                            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
+                            newOwls.add(young); 
+                            System.out.println("Owl has given birth");
+                        }  
+                    }
+                }
+            }     
         }
-    } 
+    }
 }
 

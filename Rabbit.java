@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Random;
+import java.util.Iterator;
 /**
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
@@ -53,22 +54,33 @@ public class Rabbit extends TheHunted
         }
     }
 
-    /**
-     * Check whether or not this rabbit is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newRabbits A list to return newly born rabbits.
-     */
-    private void giveBirth(List<Living> newRabbits)
+    private void giveBirth(List<Living> newRabbits) 
     {
-        // New rabbits are born into adjacent locations.
-        // Get a list of adjacent free locations.
         Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc, gender);
-            newRabbits.add(young);
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next(); 
+            if(where != null) 
+            {
+                Object surroundingAnimal = field.getObjectAt(where);
+                if (surroundingAnimal != null && surroundingAnimal instanceof Rabbit) {
+                    Rabbit mate = (Rabbit) surroundingAnimal;
+                    if(this.getGender() != mate.getGender()) {
+                        int births = breed();
+                        for(int b = 0; b < births && adjacent.size() > 0; b++) {
+                            if (free.size() == 0) {
+                                break;
+                            }
+                            Location loc = free.remove(0);
+                            Rabbit young = new Rabbit(false, field, loc, setGender(generateRandomGender()));
+                            newRabbits.add(young); 
+                            System.out.println("Rabbit has given birth");
+                        }  
+                    }
+                }
+            }     
         }
     }
 

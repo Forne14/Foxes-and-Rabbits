@@ -91,6 +91,7 @@ public class Fox extends TheHunter
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
+                    System.out.println("Fox has eaten a rabbit");
                     return where;
                 }
             }
@@ -119,7 +120,8 @@ public class Fox extends TheHunter
                             }
                             Location loc = free.remove(0);
                             Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
-                            newFoxes.add(young); 
+                            newFoxes.add(young);
+                            System.out.println("Fox has given birth");
                         }  
                     }
                 }
