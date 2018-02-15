@@ -50,14 +50,7 @@ public abstract class Animal extends Living
     
     protected boolean setGender(boolean female)
     {
-        if(female)
-        {
-            return gender = true;
-        }
-        else
-        {
-            return gender = false;
-        }
+            return gender = female;
     }
     
     /*protected boolean findMate()

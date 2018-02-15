@@ -102,24 +102,28 @@ public class Fox extends TheHunter
     {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
-            Object surroundingAnimal = field.getObjectAt(where);
             if(where != null) 
             {
-            Animal mate = (Animal) surroundingAnimal;
-            if(this.getGender() != mate.getGender()) {
-                int births = breed();
-                for(int b = 0; b < births && adjacent.size() > 0; b++) {
-                    Location loc = adjacent.remove(0);
-                    Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
-                    newFoxes.add(young); 
-                }  
-            }
+                Object surroundingAnimal = field.getObjectAt(where);
+                if (surroundingAnimal != null && surroundingAnimal instanceof Fox) {
+                    Fox mate = (Fox) surroundingAnimal;
+                    if(this.getGender() != mate.getGender()) {
+                        int births = breed();
+                        for(int b = 0; b < births && adjacent.size() > 0; b++) {
+                            if (free.size() == 0) {
+                                break;
+                            }
+                            Location loc = free.remove(0);
+                            Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
+                            newFoxes.add(young); 
+                        }  
+                    }
+                }
+            }     
         }
-       
-    }
-       
     }
 }
