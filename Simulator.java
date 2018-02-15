@@ -26,6 +26,8 @@ public class Simulator
     private static final double BEAR_CREATION_PROBABILITY = 0.04;
     private static final double OWL_CREATION_PROBABILITY = 0.06;
     private static final double OAKTREE_CREATION_PROBABILITY = 0.03;
+    private static final String DAY = "Day";
+    private static final String NIGHT = "Night";
     
     // List of animals in the field.
     private List<Living> animals;
@@ -104,6 +106,13 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
+        
+        if (step % 24 < 16) {
+            // day
+        }
+        else {
+            // night
+        }
 
         // Provide space for newborn animals.
         List<Living> newAnimals = new ArrayList<>();        
@@ -196,4 +205,12 @@ public class Simulator
             // wake up
         }
     }
+    
+    public int getStep()
+    {
+        return step; 
+    }
+    
+    
+    
 }

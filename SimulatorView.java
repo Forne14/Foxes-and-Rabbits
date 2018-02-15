@@ -23,6 +23,7 @@ public class SimulatorView extends JFrame
     private static final Color UNKNOWN_COLOR = Color.gray;
 
     private final String STEP_PREFIX = "Step: ";
+    private final String TIME_OF_DAY = "Time of day: ";
     private final String POPULATION_PREFIX = "Population: ";
     private JLabel stepLabel, population, infoLabel;
     private FieldView fieldView;
@@ -80,7 +81,7 @@ public class SimulatorView extends JFrame
     {
         infoLabel.setText(text);
     }
-
+    
     /**
      * @return The color to be used for a given class of animal.
      */
@@ -107,7 +108,7 @@ public class SimulatorView extends JFrame
             setVisible(true);
         }
             
-        stepLabel.setText(STEP_PREFIX + step);
+        stepLabel.setText(STEP_PREFIX + step +"    " + TIME_OF_DAY);
         stats.reset();
         
         fieldView.preparePaint();
