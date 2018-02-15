@@ -26,8 +26,9 @@ public class Simulator
     private static final double BEAR_CREATION_PROBABILITY = 0.04;
     private static final double OWL_CREATION_PROBABILITY = 0.06;
     private static final double OAKTREE_CREATION_PROBABILITY = 0.03;
-    private static final String DAY = "Day";
-    private static final String NIGHT = "Night";
+    private static final String DAY = "Day Time";
+    private static final String NIGHT = "Night Time";
+    private static String currentTimeOfDay; 
     
     // List of animals in the field.
     private List<Living> animals;
@@ -94,7 +95,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            // delay(60);   // uncomment this to run more slowly
+             delay(100);   // uncomment this to run more slowly
         }
     }
     
@@ -106,12 +107,12 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
-        
-        if (step % 24 < 16) {
-            // day
+        if (step % 24 < 12) {
+            currentTimeOfDay = DAY;
+            
         }
-        else {
-            // night
+        else { 
+            currentTimeOfDay = NIGHT;
         }
 
         // Provide space for newborn animals.
@@ -119,8 +120,8 @@ public class Simulator
         // Let all rabbits act.
         System.out.println(animals.size());
         for(Iterator<Living> it = animals.iterator(); it.hasNext(); ) {
-            Living animal = it.next();
-            animal.act(newAnimals);
+            Living animal = it.next(); 
+            animal.act(newAnimals, currentTimeOfDay); 
             if(! animal.isAlive()) {
                 it.remove();
             }
@@ -129,7 +130,7 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
 
-        view.showStatus(step, field);
+        view.showStatus(step, field, currentTimeOfDay);
     }
         
     /**
@@ -142,7 +143,7 @@ public class Simulator
         populate();
         
         // Show the starting state in the view.
-        view.showStatus(step, field);
+        view.showStatus(step, field, currentTimeOfDay); 
     }
     
     /**

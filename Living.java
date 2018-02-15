@@ -38,7 +38,7 @@ public abstract class Living
      * whatever it wants/needs to do.
      * @param newAnimals A list to receive newly born animals.
      */
-    abstract public void act(List<Living> newLiving);
+    abstract public void act(List<Living> newLiving, String currentTimeOfDay); 
 
     /**
      * Indicate that the living is no longer living.

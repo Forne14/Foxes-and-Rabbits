@@ -50,26 +50,32 @@ public class Fox extends TheHunter
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Living> newFoxes)
+    public void act(List<Living> newFoxes, String currentTimeOfDay)
     {
         incrementAge();
         incrementHunger();
-        if(isAlive()) {
-            giveBirth(newFoxes);            
-            // Move towards a source of food if found.
-            Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
+        if(isAlive() && currentTimeOfDay.equals("Night Time")){
+            if(isAlive()) {
+                giveBirth(newFoxes);            
+                // Move towards a source of food if found.
+                Location newLocation = findFood();
+                if(newLocation == null) { 
+                    // No food found - try to move to a free location.
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+                }
+                // See if it was possible to move.
+                if(newLocation != null) {
+                    setLocation(newLocation);
+                }
+                else {
+                    // Overcrowding.
+                    setDead();
+                }
             }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
+        }
+        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
+            System.out.println("all the Foxes are sleeping shhhhh");
+            
         }
     }
 

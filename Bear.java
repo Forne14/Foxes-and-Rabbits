@@ -34,11 +34,11 @@ public class Bear extends TheHunter
         
     }
     
-    public void act(List<Living> newBears)
+    public void act(List<Living> newBears, String currentTimeOfDay)
     {
         incrementAge();
         incrementHunger();
-        if(isAlive()) {
+        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
             giveBirth(newBears);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
@@ -52,10 +52,13 @@ public class Bear extends TheHunter
             }
             else {
                 // Overcrowding.
-                //setDead();
-                System.out.println("no space");
+                setDead();
             }
-        } 
+        }
+        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+                 System.out.println("all the bears are sleeping shhhhh");
+            
+           }
     }
     
     /**

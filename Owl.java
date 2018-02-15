@@ -35,28 +35,34 @@ public class Owl extends TheHunter
         
     }
     
-    public void act(List<Living> newOwls)
+    public void act(List<Living> newOwls, String currentTimeOfDay)
     {
         incrementAge();
         incrementHunger();
         System.out.println("owl class check");
-        if(isAlive()) {
-            giveBirth(newOwls);            
-            // Move towards a source of food if found.
-            System.out.println("find owl food");
-            Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
+        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+               
+                giveBirth(newOwls);            
+                // Move towards a source of food if found.
+                System.out.println("find owl food");
+                Location newLocation = findFood();
+                if(newLocation == null) { 
+                    // No food found - try to move to a free location.
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+                }
+                // See if it was possible to move.
+                if(newLocation != null) {
+                     setLocation(newLocation);
+                 }
+                 else {
+                    // Overcrowding.
+                    setDead();
+                }
+        }
+        
+        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
+            System.out.println("all the Owls are sleeping shhhhh");
+            giveBirth(newOwls);
         }
     }
     

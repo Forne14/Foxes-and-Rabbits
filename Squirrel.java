@@ -31,11 +31,11 @@ public class Squirrel extends TheHunted
         }
     }
     
-    public void act(List<Living> newSquirrels)
+    public void act(List<Living> newSquirrels, String currentTimeOfDay)
     {
         incrementAge();
         incrementHunger();
-        if(isAlive()) {
+        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
             giveBirth(newSquirrels);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
@@ -52,6 +52,10 @@ public class Squirrel extends TheHunted
                 setDead();
             }
         }
+        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+                 System.out.println("all the squirrels are sleeping shhhhh");
+            
+            }
     }
     
     /**

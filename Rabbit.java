@@ -37,10 +37,10 @@ public class Rabbit extends TheHunted
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void act(List<Living> newRabbits)
+    public void act(List<Living> newRabbits, String currentTimeOfDay)
     {
         incrementAge();
-        if(isAlive()) {
+        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
             giveBirth(newRabbits);            
             // Try to move into a free location.
             Location newLocation = getField().freeAdjacentLocation(getLocation());
@@ -52,8 +52,12 @@ public class Rabbit extends TheHunted
                 setDead();
             }
         }
-    }
-
+        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+            System.out.println("all the rabbits are sleeping shhhhh");
+            
+        }
+    }  
+    
     private void giveBirth(List<Living> newRabbits) 
     {
         Field field = getField();

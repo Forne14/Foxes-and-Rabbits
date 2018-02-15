@@ -12,13 +12,14 @@ public class State
     /**
      * Constructor for objects of class State
      */
-    public State(String Day, String Night)
+    public State()
     {
         
     }
     
     private void setDay()
     {
+        
     }
     
     private void setNight()
