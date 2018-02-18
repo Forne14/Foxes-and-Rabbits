@@ -45,7 +45,7 @@ public class OakTree extends Plant
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Living> newOakTrees, String currentTimeOfDay)
+    public void act(List<Living> newOakTrees, String currentTimeOfDay, String weather)
     {
         incrementAge();
         if(isAlive()) {
@@ -62,6 +62,9 @@ public class OakTree extends Plant
             else {
                 // Overcrowding.
                 setDead();
+            }
+            if(isAlive() && weather.equals("Raining")){
+                GROWING_PROBABILITY = 2 * GROWING_PROBABILITY;
             }
         }
     }

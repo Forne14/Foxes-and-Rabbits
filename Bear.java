@@ -34,7 +34,7 @@ public class Bear extends TheHunter
         
     }
     
-    public void act(List<Living> newBears, String currentTimeOfDay)
+    public void act(List<Living> newBears, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
@@ -55,7 +55,7 @@ public class Bear extends TheHunter
                 setDead();
             }
         }
-        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+        if(isAlive() && (currentTimeOfDay.equals("Night Time") || weather.equals("Raining"))) {
                  System.out.println("all the bears are sleeping shhhhh");
             
            }

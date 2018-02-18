@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public abstract class Animal extends Living
 {
-    protected static final double GENDER_PROBABILITY = 0.5;
+    //protected static final double GENDER_PROBABILITY = 0.5;
     protected boolean gender;
      // A shared random number generator to control breeding.
     protected static Random rand = new Random();

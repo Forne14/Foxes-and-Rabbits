@@ -12,7 +12,7 @@ public class Owl extends TheHunter
     // Characteristics shared by all owl (class variables).
     
     // number of steps a owl can go before it has to eat again.
-    private static final int SQUIRREL_FOOD_VALUE = 12;
+    private static final int SQUIRREL_FOOD_VALUE = 20;
 
     /**
      * Constructor for objects of class owl
@@ -20,8 +20,8 @@ public class Owl extends TheHunter
     public Owl(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field,location, gender);
-        BREEDING_AGE =30;
-        MAX_AGE = 300;
+        BREEDING_AGE =7;
+        MAX_AGE = 235;
         BREEDING_PROBABILITY = 0.8;
         MAX_LITTER_SIZE = 5;
         if(randomAge) {
@@ -35,11 +35,10 @@ public class Owl extends TheHunter
         
     }
     
-    public void act(List<Living> newOwls, String currentTimeOfDay)
+    public void act(List<Living> newOwls, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
-        System.out.println("owl class check");
         if(isAlive() && currentTimeOfDay.equals("Night Time")) {
                
                 giveBirth(newOwls);            

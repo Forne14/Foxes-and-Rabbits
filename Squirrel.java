@@ -10,7 +10,7 @@ import java.util.Iterator;
  */
 public class Squirrel extends TheHunted
 {
-    private static final int OAKTREE_FOOD_VALUE = 7;
+    private static final int OAKTREE_FOOD_VALUE = 20;
     /**
      * Create a new squirrel. A squirrel may be created with age
      * zero (a new born) or with a random age.
@@ -23,15 +23,15 @@ public class Squirrel extends TheHunted
     {
         super(field, location, gender);
         MAX_AGE = 120;
-        BREEDING_AGE = 15;
-        BREEDING_PROBABILITY = 0.40;
+        BREEDING_AGE = 12;
+        BREEDING_PROBABILITY = 0.4;
         MAX_LITTER_SIZE = 6;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
     }
     
-    public void act(List<Living> newSquirrels, String currentTimeOfDay)
+    public void act(List<Living> newSquirrels, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
@@ -39,10 +39,10 @@ public class Squirrel extends TheHunted
             giveBirth(newSquirrels);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
-            if(newLocation == null) { 
+          if(newLocation == null) { 
                 // No food found - try to move to a free location.
                 newLocation = getField().freeAdjacentLocation(getLocation());
-            }
+          }
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
@@ -50,7 +50,7 @@ public class Squirrel extends TheHunted
             else {
                 // Overcrowding.
                 setDead();
-            }
+          }
         }
         if(isAlive() && currentTimeOfDay.equals("Night Time")) {
                  System.out.println("all the squirrels are sleeping shhhhh");
@@ -70,7 +70,7 @@ public class Squirrel extends TheHunted
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
-            Object plant = (Plant) field.getObjectAt(where);
+            Object plant = field.getObjectAt(where);
             if(plant instanceof OakTree) {
                 OakTree tree = (OakTree) plant;
                 if(tree.isAlive()) {    
@@ -114,4 +114,3 @@ public class Squirrel extends TheHunted
     }
     
 }
-

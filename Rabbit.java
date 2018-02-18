@@ -24,9 +24,9 @@ public class Rabbit extends TheHunted
     {
         super(field, location, gender);
         BREEDING_AGE = 5;
-        MAX_AGE = 40;
+        MAX_AGE = 80;
         BREEDING_PROBABILITY = 0.04;
-        MAX_LITTER_SIZE = 4;
+        MAX_LITTER_SIZE = 6;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
@@ -37,7 +37,7 @@ public class Rabbit extends TheHunted
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
-    public void act(List<Living> newRabbits, String currentTimeOfDay)
+    public void act(List<Living> newRabbits, String currentTimeOfDay, String weather)
     {
         incrementAge();
         if(isAlive() && currentTimeOfDay.equals("Day Time")) {

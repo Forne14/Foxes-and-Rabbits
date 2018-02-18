@@ -14,7 +14,7 @@ public class Fox extends TheHunter
 {
     // Characteristics shared by all foxes (class variables).
     
-    private static final int RABBIT_FOOD_VALUE = 9;
+    private static final int RABBIT_FOOD_VALUE = 20;
     // Individual characteristics (instance fields).
 
     /**
@@ -28,10 +28,10 @@ public class Fox extends TheHunter
     public Fox(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field, location, gender);  
-        BREEDING_AGE = 15;
-        MAX_AGE = 150;
-        BREEDING_PROBABILITY = 0.02;
-        MAX_LITTER_SIZE = 2;
+        BREEDING_AGE = 6;
+        MAX_AGE = 200;
+        BREEDING_PROBABILITY = 0.1;
+        MAX_LITTER_SIZE = 5;
         
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
@@ -50,7 +50,7 @@ public class Fox extends TheHunter
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void act(List<Living> newFoxes, String currentTimeOfDay)
+    public void act(List<Living> newFoxes, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
