@@ -19,9 +19,10 @@ public abstract class Plant extends Living
     /**
      * Constructor for objects of class Plant
      */
-    public Plant(Field field, Location location)
+    public Plant(Field field, Location location, boolean infected)
+    
     {
-        super(field, location);
+        super(field, location,infected);
     }
     
         /**
