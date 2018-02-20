@@ -9,9 +9,9 @@ import java.util.Iterator;
  * @version 2016.02.29 (2)
  */
 public class Rabbit extends TheHunted
-
+ 
 {
-
+    private static final int OAKTREE_FOOD_VALUE = 20;
     /**
      * Create a new rabbit. A rabbit may be created with age
      * zero (a new born) or with a random age.
@@ -20,9 +20,9 @@ public class Rabbit extends TheHunted
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location, boolean gender)
+    public Rabbit(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
-        super(field, location, gender);
+        super(field, location, gender, infected);
         BREEDING_AGE = 5;
         MAX_AGE = 80;
         BREEDING_PROBABILITY = 0.04;
@@ -30,33 +30,8 @@ public class Rabbit extends TheHunted
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
+        
     }
-    
-    /**
-     * This is what the rabbit does most of the time - it runs 
-     * around. Sometimes it will breed or die of old age.
-     * @param newRabbits A list to return newly born rabbits.
-     */
-    public void act(List<Living> newRabbits, String currentTimeOfDay, String weather)
-    {
-        incrementAge();
-        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
-            giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
-            else {
-                // Overcrowding.
-                setDead();
-            }
-        }
-        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
-            System.out.println("all the rabbits are sleeping shhhhh");
-            
-        }
-    }  
     
     private void giveBirth(List<Living> newRabbits) 
     {
@@ -78,7 +53,7 @@ public class Rabbit extends TheHunted
                                 break;
                             }
                             Location loc = free.remove(0);
-                            Rabbit young = new Rabbit(false, field, loc, setGender(generateRandomGender()));
+                            Rabbit young = new Rabbit(false, field, loc, setGender(generateRandomGender()), infected);
                             newRabbits.add(young); 
                             System.out.println("Rabbit has given birth");
                         }  
@@ -87,5 +62,58 @@ public class Rabbit extends TheHunted
             }     
         }
     }
-
+    
+    public void act(List<Living> newRabbits, String currentTimeOfDay, String weather)
+    {
+        incrementAge();
+        incrementHunger();
+        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
+            giveBirth(newRabbits);            
+            // Move towards a source of food if found.
+            Location newLocation = findFood();
+          if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+          }
+            // See if it was possible to move.
+            if(newLocation != null) {
+                setLocation(newLocation);
+            }
+            else {
+                // Overcrowding.
+                setDead();
+          }
+        }
+        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+                 System.out.println("all the rabbits are sleeping shhhhh");
+            
+            }
+           
+    }
+    
+    /**
+     * Look for Squirrels adjacent to the current location.
+     * Only the first live prey is eaten.
+     * @return Where food was found, or null if it wasn't.
+     */
+    private Location findFood()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object plant = field.getObjectAt(where);
+            if(plant instanceof OakTree) {
+                OakTree tree = (OakTree) plant;
+                if(tree.isAlive()) {    
+                    foodLevel += OAKTREE_FOOD_VALUE;
+                    System.out.println("Squirrel has eaten");
+                    return where;
+                }
+            }
+        }
+        return null;
+    }
+    
 }
