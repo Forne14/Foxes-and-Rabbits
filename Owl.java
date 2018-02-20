@@ -7,7 +7,7 @@ import java.util.Random;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Owl extends TheHunter
+public class Owl extends TheHunter 
 {
     // Characteristics shared by all owl (class variables).
     
@@ -17,9 +17,9 @@ public class Owl extends TheHunter
     /**
      * Constructor for objects of class owl
      */
-    public Owl(boolean randomAge, Field field, Location location, boolean gender)
+    public Owl(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
-        super(field,location, gender);
+        super(field,location, gender, infected);
         BREEDING_AGE =7;
         MAX_AGE = 235;
         BREEDING_PROBABILITY = 0.8;
@@ -33,12 +33,14 @@ public class Owl extends TheHunter
             foodLevel = SQUIRREL_FOOD_VALUE;
         }
         
+        
     }
     
     public void act(List<Living> newOwls, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
+        
         if(isAlive() && currentTimeOfDay.equals("Night Time")) {
                
                 giveBirth(newOwls);            
@@ -111,7 +113,7 @@ public class Owl extends TheHunter
                                 break;
                             }
                             Location loc = free.remove(0);
-                            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
+                            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()), false);
                             newOwls.add(young); 
                             System.out.println("Owl has given birth");
                         }  
@@ -120,5 +122,7 @@ public class Owl extends TheHunter
             }     
         }
     }
+    
+    
 }
 
