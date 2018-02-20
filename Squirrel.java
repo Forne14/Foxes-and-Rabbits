@@ -19,9 +19,9 @@ public class Squirrel extends TheHunted
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Squirrel(boolean randomAge, Field field, Location location, boolean gender)
+    public Squirrel(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
-        super(field, location, gender);
+        super(field, location, gender, infected);
         MAX_AGE = 120;
         BREEDING_AGE = 12;
         BREEDING_PROBABILITY = 0.4;
@@ -29,6 +29,7 @@ public class Squirrel extends TheHunted
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
         }
+        
     }
     
     public void act(List<Living> newSquirrels, String currentTimeOfDay, String weather)
@@ -56,6 +57,7 @@ public class Squirrel extends TheHunted
                  System.out.println("all the squirrels are sleeping shhhhh");
             
             }
+            
     }
     
     /**
@@ -103,7 +105,7 @@ public class Squirrel extends TheHunted
                                 break;
                             }
                             Location loc = free.remove(0);
-                            Squirrel young = new Squirrel(false, field, loc, setGender(generateRandomGender()));
+                            Squirrel young = new Squirrel(false, field, loc, setGender(generateRandomGender()), infected);
                             newSquirrels.add(young); 
                             System.out.println("Squirrel has given birth");
                         }  
