@@ -25,13 +25,14 @@ public class Fox extends TheHunter
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location, boolean gender)
+    public Fox(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
-        super(field, location, gender);  
+        super(field, location, gender, infected);   
         BREEDING_AGE = 6;
         MAX_AGE = 200;
         BREEDING_PROBABILITY = 0.1;
         MAX_LITTER_SIZE = 5;
+        
         
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
@@ -41,6 +42,7 @@ public class Fox extends TheHunter
             age = 0;
             foodLevel = RABBIT_FOOD_VALUE;
         }
+        
     }
     
     /**
@@ -77,6 +79,7 @@ public class Fox extends TheHunter
             System.out.println("all the Foxes are sleeping shhhhh");
             
         }
+       
     }
 
     /**
@@ -92,7 +95,7 @@ public class Fox extends TheHunter
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
-            if(animal instanceof Rabbit) {
+            if(animal != null && animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
@@ -125,7 +128,7 @@ public class Fox extends TheHunter
                                 break;
                             }
                             Location loc = free.remove(0);
-                            Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
+                            Fox young = new Fox(false, field, loc, setGender(generateRandomGender()), false);
                             newFoxes.add(young);
                             System.out.println("Fox has given birth");
                         }  
