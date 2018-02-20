@@ -46,7 +46,6 @@ public class SimulatorView extends JFrame
 
         setTitle("Fox and Rabbit Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
-        //timeLabel = new JLabel(TIME_OF_DAY, JLabel.RIGHT);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
@@ -110,7 +109,7 @@ public class SimulatorView extends JFrame
             setVisible(true);
         }
             
-        stepLabel.setText(STEP_PREFIX + step + "             " +TIME_OF_DAY + currentTimeOfDay + "           " + CURRENT_WEATHER + weather);
+        stepLabel.setText(STEP_PREFIX + step + " " +TIME_OF_DAY + currentTimeOfDay + " " + CURRENT_WEATHER + weather);
         //timeLabel.setText(TIME_OF_DAY);
         stats.reset();
         
