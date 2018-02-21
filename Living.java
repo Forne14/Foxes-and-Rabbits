@@ -67,8 +67,6 @@ public abstract class Living
         location = newLocation;
         field.place(this, newLocation);
     }
- 
-    
     
      /**
      * Return the animal's location.

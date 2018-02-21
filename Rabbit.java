@@ -95,28 +95,7 @@ public class Rabbit extends TheHunted
             
     }
     
-    private void infect()
-    {
-        Field field = getField();
-        if(field == null){
-            return;
-        }
-        else{
-            List<Location> adjacent = field.adjacentLocations(getLocation());
-            Iterator<Location> it = adjacent.iterator();
-            while(it.hasNext()) {
-               Location where = it.next();
-               Object theHunted = field.getObjectAt(where);
-               if(theHunted != null && theHunted instanceof TheHunted){
-                    TheHunted poorSoul = (TheHunted) theHunted;
-                    if(poorSoul.isAlive() && poorSoul.getInfected()==false){
-                         poorSoul.setInfected(true);    
-                    }
-               }
-            }
-            System.out.println("animal has infected another animal");
-        }
-    }
+ 
     
     /**
      * Look for Squirrels adjacent to the current location.

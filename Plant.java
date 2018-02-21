@@ -35,7 +35,6 @@ public abstract class Plant extends Living
         return GROWING_PROBABILITY;
     }
     
-        
         /**
      * Return the animal's location.
      * @return The animal's location.

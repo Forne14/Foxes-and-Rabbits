@@ -30,5 +30,29 @@ public abstract class TheHunted extends Animal
         return infected;
     }
     
+    protected void infect()
+    {
+        Field field = getField();
+        if(field == null){
+            return;
+        }
+        else{
+            List<Location> adjacent = field.adjacentLocations(getLocation());
+            Iterator<Location> it = adjacent.iterator();
+            while(it.hasNext()) {
+               Location where = it.next();
+               Object theHunted = field.getObjectAt(where);
+               if(theHunted != null && theHunted instanceof TheHunted){
+                    TheHunted poorSoul = (TheHunted) theHunted;
+                    if(poorSoul.isAlive() && poorSoul.getInfected()==false){
+                         poorSoul.setInfected(true);
+                         foodLevel -= 2;
+                    }
+               }
+            }
+            System.out.println("animal has infected another animal");
+        }
+    }
+    
     
 }

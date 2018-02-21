@@ -43,12 +43,17 @@ public class Simulator
     private SimulatorView view;
     protected static Random rand = new Random();
     
+    ArrayList<String> weathersPossible = new ArrayList<String>();
+    
     /**
      * Construct a simulation field with default size.
      */
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        weathersPossible.add("Rainy");
+        weathersPossible.add("Foggy");
+        weathersPossible.add("Windy");
     }
     
     /**
@@ -110,15 +115,16 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
+        
         if (step % 24 < 12) {
             currentTimeOfDay = DAY;
         }
         else { 
             currentTimeOfDay = NIGHT;
         }
-        
+        int  n = rand.nextInt(2);
         if(step % 60 < 30){
-            weather = RAINING;
+            weather = weathersPossible.get(n);
         }
         else{
             weather = SUNNY;

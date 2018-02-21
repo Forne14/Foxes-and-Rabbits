@@ -36,6 +36,7 @@ public class Squirrel extends TheHunted
     {
         incrementAge();
         incrementHunger();
+        infect();
         if(isAlive() && currentTimeOfDay.equals("Day Time")) {
             giveBirth(newSquirrels);            
             // Move towards a source of food if found.
