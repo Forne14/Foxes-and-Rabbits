@@ -11,9 +11,7 @@ import java.util.Random;
  */
 public class OakTree extends Plant
 {
-    // Characteristics shared by all foxes (class variables).
     
-
     // The fox's age.
     private int age;
 
@@ -25,9 +23,9 @@ public class OakTree extends Plant
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public OakTree(boolean randomAge, Field field, Location location,boolean infected)
+    public OakTree(boolean randomAge, Field field, Location location)
     {
-        super(field, location,infected);
+        super(field, location);
         MAX_AGE = 500;
         GROWING_PROBABILITY = 0.001; 
         if(randomAge) {
@@ -83,7 +81,7 @@ public class OakTree extends Plant
         int sappling = plantTree();
         for(int b = 0; b < sappling && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            OakTree young = new OakTree(false, field, loc,false);
+            OakTree young = new OakTree(false, field, loc);
             newOakTree.add(young);
         }
     }

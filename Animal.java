@@ -14,19 +14,19 @@ public abstract class Animal extends Living
     
     // instance variables - replace the example below with your own
     // The age at which a fox can start to breed.
-    protected static  int BREEDING_AGE;
+    private static  int BREEDING_AGE;
     // The age to which a fox can live.
-    protected static  int MAX_AGE;
+    private static  int MAX_AGE;
     // The likelihood of a fox breeding.
-    protected static  double BREEDING_PROBABILITY;
+    private static  double BREEDING_PROBABILITY;
     // The maximum number of births.
-    protected static int MAX_LITTER_SIZE;
+    private static int MAX_LITTER_SIZE;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
     // A shared random number generator to control breeding.
     protected static final Random rand = Randomizer.getRandom();
     // The fox's age.
-    protected int age;
+    private int age;
     // The fox's food level, which is increased by eating rabbits.
     protected int foodLevel;
     
@@ -36,15 +36,72 @@ public abstract class Animal extends Living
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location, boolean gender, boolean infected)
+    public Animal(Field field, Location location, boolean gender)
     {
-        super(field, location,infected);
+        super(field, location);
         this.gender = gender;
-        this.infected = infected;
-        
-        
     }
-
+    
+    public int getBreedingAge()
+    {
+        return BREEDING_AGE;
+    }
+    
+    public int getMaxAge()
+    {
+        return MAX_AGE;
+    }
+    
+    public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+     public int getMaxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public int getAge()
+    {
+        return age;
+    }
+    
+    public void setAge(int age)
+    {
+        age = age;
+    }
+    
+    public int getFoodLevel()
+    {
+        return foodLevel;
+    }
+    
+    public void setFoodLevel(int level)
+    {
+        foodLevel = level;
+    }
+    
+    public void setBreedingAge(int breeding)
+    {
+        BREEDING_AGE = age;
+    }
+    
+    public void setMaxAge(int max)
+    {
+        MAX_AGE = max;
+    }
+    
+    public void setBreedingProbability(double probability)
+    {
+        BREEDING_PROBABILITY = probability;
+    }
+    
+     public void setMaxLitterSize(int litter)
+    {
+        MAX_LITTER_SIZE = litter;
+    }
+    
     protected boolean generateRandomGender()
     {
         return rand.nextBoolean();

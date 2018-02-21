@@ -14,13 +14,11 @@ public abstract class Living
     protected Field field;
     // The plant's position in the field.
     protected Location location;
-    
-    protected boolean infected;
 
     /**
      * Constructor for objects of class Plant
      */
-    public Living(Field field, Location location, boolean infected)
+    public Living(Field field, Location location)
     {
         alive = true;
         this.field = field;
@@ -70,15 +68,7 @@ public abstract class Living
         field.place(this, newLocation);
     }
  
-        protected void setInfected(boolean infection)
-    {
-         infected = infection;
-    }
     
-     protected boolean getInfected()
-    {
-        return infected;
-    }
     
      /**
      * Return the animal's location.
@@ -98,24 +88,5 @@ public abstract class Living
         return field;
     }
     
-    protected Location infect()
-    {
-        Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-           Location where = it.next();
-           Object animal = field.getObjectAt(where);
-           Living poorSoul = (Living) animal;
-           if(poorSoul != null && poorSoul instanceof Animal)
-             {
-               if(this.getInfected()==true){
-                    poorSoul.setInfected(true);  
-                    return where;
-               }
-             }
-        }
-        System.out.println("animal has infected another animal");
-        return null;
-    }
+    
 }

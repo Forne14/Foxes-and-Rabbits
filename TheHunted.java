@@ -9,12 +9,26 @@ import java.util.Random;
  */
 public abstract class TheHunted extends Animal
 {
+    boolean infected;
     /**
      * Constructor for objects of class Hunted
      */
     public TheHunted(Field field, Location location, boolean gender, boolean infected)
     {
-        super(field, location, gender, infected); 
+        super(field, location, gender); 
+        this.infected = infected;
+        this.gender = gender;
     }
    
+    protected void setInfected(boolean infection)
+    {
+         infected = infection;
+    }
+    
+    protected boolean getInfected()
+    {
+        return infected;
+    }
+    
+    
 }

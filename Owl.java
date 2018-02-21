@@ -1,11 +1,11 @@
 import java.util.List;
 import java.util.Iterator;
-import java.util.Random;
+import java.util.Random; 
 /**
  * Write a description of class Owl here.
  *
  * @author (your name)
- * @version (a version number or a date)
+ * @version (a version number or a date) 
  */
 public class Owl extends TheHunter 
 {
@@ -17,19 +17,19 @@ public class Owl extends TheHunter
     /**
      * Constructor for objects of class owl
      */
-    public Owl(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
+    public Owl(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field,location, gender, infected);
-        BREEDING_AGE =7;
-        MAX_AGE = 235;
-        BREEDING_PROBABILITY = 0.8;
-        MAX_LITTER_SIZE = 5;
+        super(field,location, gender);
+        setBreedingAge(7); 
+        setMaxAge(235);
+        setBreedingProbability(0.8);
+        setMaxLitterSize(5);
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(SQUIRREL_FOOD_VALUE) ;
         }
         else {
-            age = 0;
+            setAge(0);
             foodLevel = SQUIRREL_FOOD_VALUE;
         }
         
@@ -113,7 +113,7 @@ public class Owl extends TheHunter
                                 break;
                             }
                             Location loc = free.remove(0);
-                            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()), false);
+                            Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
                             newOwls.add(young); 
                             System.out.println("Owl has given birth");
                         }  

@@ -19,12 +19,23 @@ public abstract class Plant extends Living
     /**
      * Constructor for objects of class Plant
      */
-    public Plant(Field field, Location location, boolean infected)
+    public Plant(Field field, Location location)
     
     {
-        super(field, location,infected);
+        super(field, location);
     }
     
+    public int getMaxAge()
+    {
+        return MAX_AGE;
+    }
+    
+    public double getGrowingProbability()
+    {
+        return GROWING_PROBABILITY;
+    }
+    
+        
         /**
      * Return the animal's location.
      * @return The animal's location.

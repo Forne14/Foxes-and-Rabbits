@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.Iterator;
-import java.util.Random;
+import java.util.Random; 
 
 /**
  * A simple model of a fox.
@@ -25,21 +25,19 @@ public class Fox extends TheHunter
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
+    public Fox(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field, location, gender, infected);   
-        BREEDING_AGE = 6;
-        MAX_AGE = 200;
-        BREEDING_PROBABILITY = 0.1;
-        MAX_LITTER_SIZE = 5;
-        
-        
+        super(field, location, gender);   
+        setBreedingAge(6); 
+        setMaxAge(200);
+        setBreedingProbability(0.1);
+        setMaxLitterSize(5);
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
         }
         else {
-            age = 0;
+            setAge(0);
             foodLevel = RABBIT_FOOD_VALUE;
         }
         
@@ -128,7 +126,7 @@ public class Fox extends TheHunter
                                 break;
                             }
                             Location loc = free.remove(0);
-                            Fox young = new Fox(false, field, loc, setGender(generateRandomGender()), false);
+                            Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
                             newFoxes.add(young);
                             System.out.println("Fox has given birth");
                         }  

@@ -98,7 +98,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-             delay(100);   // uncomment this to run more slowly
+            delay(200);   // uncomment this to run more slowly
         }
     }
     
@@ -116,6 +116,7 @@ public class Simulator
         else { 
             currentTimeOfDay = NIGHT;
         }
+        
         if(step % 60 < 30){
             weather = RAINING;
         }
@@ -129,10 +130,11 @@ public class Simulator
         System.out.println(animals.size());
         for(Iterator<Living> it = animals.iterator(); it.hasNext(); ) {
             Living animal = it.next(); 
-            animal.act(newAnimals, currentTimeOfDay, weather);  
-            animal.infect();
             if(! animal.isAlive()) {
                 it.remove();
+            }
+            else{
+                animal.act(newAnimals, currentTimeOfDay, weather);
             }
         }
                
@@ -167,7 +169,7 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location, rand.nextBoolean(), true);
+                    Fox fox = new Fox(true, field, location, rand.nextBoolean());
                     animals.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
@@ -184,19 +186,19 @@ public class Simulator
                 else if(rand.nextDouble()<= OWL_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    Owl owl= new Owl(true, field, location, rand.nextBoolean(), rand.nextBoolean());
+                    Owl owl= new Owl(true, field, location, rand.nextBoolean());
                     animals.add(owl);
                 }
                 else if(rand.nextDouble()<= BEAR_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    Bear bear= new Bear(true, field, location, rand.nextBoolean(), rand.nextBoolean());
+                    Bear bear= new Bear(true, field, location, rand.nextBoolean());
                     animals.add(bear);
                 }
                 else if(rand.nextDouble()<= OAKTREE_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    OakTree oakTree= new OakTree(true, field, location,false);
+                    OakTree oakTree= new OakTree(true, field, location);
                     animals.add(oakTree);
                 }
             }

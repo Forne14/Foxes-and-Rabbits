@@ -13,9 +13,9 @@ public abstract class TheHunter extends Animal
     /**
      * Constructor for objects of class Predator
      */
-    public TheHunter(Field field, Location location, boolean gender, boolean infected)
+    public TheHunter(Field field, Location location, boolean gender)
     {
-        super(field, location, gender, infected);
+        super(field, location, gender);
     }
     
     

@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.Random;
-import java.util.Iterator;
+import java.util.Iterator; 
 /**
  * A simple model of a squirrel.
  * Squirrels age, move, breed, and die.
@@ -22,12 +22,12 @@ public class Squirrel extends TheHunted
     public Squirrel(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        MAX_AGE = 120;
-        BREEDING_AGE = 12;
-        BREEDING_PROBABILITY = 0.4;
-        MAX_LITTER_SIZE = 6;
+        setMaxAge(120);
+        setBreedingAge(12); 
+        setBreedingProbability(0.4);
+        setMaxLitterSize(6);
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            setAge(rand.nextInt(getMaxAge()));
         }
         
     }

@@ -12,6 +12,7 @@ public class Rabbit extends TheHunted
  
 {
     private static final int OAKTREE_FOOD_VALUE = 20;
+    protected boolean infected;
     /**
      * Create a new rabbit. A rabbit may be created with age
      * zero (a new born) or with a random age.
@@ -23,12 +24,12 @@ public class Rabbit extends TheHunted
     public Rabbit(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        BREEDING_AGE = 5;
-        MAX_AGE = 80;
-        BREEDING_PROBABILITY = 0.04;
-        MAX_LITTER_SIZE = 6;
+        setBreedingAge(5); 
+        setMaxAge(80);
+        setBreedingProbability(0.04);
+        setMaxLitterSize(6); 
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            setAge(rand.nextInt(getMaxAge()));
         }
         
     }
@@ -66,29 +67,55 @@ public class Rabbit extends TheHunted
     public void act(List<Living> newRabbits, String currentTimeOfDay, String weather)
     {
         incrementAge();
-        incrementHunger();
+        incrementHunger(); 
+        infect();
         if(isAlive() && currentTimeOfDay.equals("Day Time")) {
-            giveBirth(newRabbits);            
-            // Move towards a source of food if found.
-            Location newLocation = findFood();
-          if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-          }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
+            if(isAlive()){
+                giveBirth(newRabbits);            
+                // Move towards a source of food if found.
+                Location newLocation = findFood();
+                if(newLocation == null) { 
+                    // No food found - try to move to a free location.
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+                }
+                // See if it was possible to move.
+                if(newLocation != null) {
+                    setLocation(newLocation);
+                }
+                else {
+                    // Overcrowding.
+                    setDead();
+                }
             }
-            else {
-                // Overcrowding.
-                setDead();
-          }
         }
         if(isAlive() && currentTimeOfDay.equals("Night Time")) {
                  System.out.println("all the rabbits are sleeping shhhhh");
             
             }
-           
+            
+    }
+    
+    private void infect()
+    {
+        Field field = getField();
+        if(field == null){
+            return;
+        }
+        else{
+            List<Location> adjacent = field.adjacentLocations(getLocation());
+            Iterator<Location> it = adjacent.iterator();
+            while(it.hasNext()) {
+               Location where = it.next();
+               Object theHunted = field.getObjectAt(where);
+               if(theHunted != null && theHunted instanceof TheHunted){
+                    TheHunted poorSoul = (TheHunted) theHunted;
+                    if(poorSoul.isAlive() && poorSoul.getInfected()==false){
+                         poorSoul.setInfected(true);    
+                    }
+               }
+            }
+            System.out.println("animal has infected another animal");
+        }
     }
     
     /**
@@ -108,12 +135,11 @@ public class Rabbit extends TheHunted
                 OakTree tree = (OakTree) plant;
                 if(tree.isAlive()) {    
                     foodLevel += OAKTREE_FOOD_VALUE;
-                    System.out.println("Squirrel has eaten");
+                    System.out.println("Rabbit has eaten");
                     return where;
                 }
             }
         }
         return null;
     }
-    
 }
