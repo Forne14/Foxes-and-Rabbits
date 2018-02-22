@@ -22,14 +22,18 @@ public class Squirrel extends TheHunted
     public Squirrel(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        setMaxAge(120);
-        setBreedingAge(12); 
+        setMaxAge(45);
+        setBreedingAge(1); 
         setBreedingProbability(0.4);
         setMaxLitterSize(6);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
+                 foodLevel = rand.nextInt(OAKTREE_FOOD_VALUE);
         }
-        
+        else {
+            setAge(0);
+            foodLevel = OAKTREE_FOOD_VALUE;
+        }
     }
     
     public void act(List<Living> newSquirrels, String currentTimeOfDay, String weather)
@@ -54,10 +58,6 @@ public class Squirrel extends TheHunted
                 setDead();
           }
         }
-        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
-                 System.out.println("all the squirrels are sleeping shhhhh");
-            
-            }
             
     }
     
@@ -78,7 +78,6 @@ public class Squirrel extends TheHunted
                 OakTree tree = (OakTree) plant;
                 if(tree.isAlive()) {    
                     foodLevel += OAKTREE_FOOD_VALUE;
-                    System.out.println("Squirrel has eaten");
                     return where;
                 }
             }
@@ -108,7 +107,6 @@ public class Squirrel extends TheHunted
                             Location loc = free.remove(0);
                             Squirrel young = new Squirrel(false, field, loc, setGender(generateRandomGender()), infected);
                             newSquirrels.add(young); 
-                            System.out.println("Squirrel has given birth");
                         }  
                     } 
                 }

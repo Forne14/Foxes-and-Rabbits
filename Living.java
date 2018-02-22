@@ -16,7 +16,7 @@ public abstract class Living
     protected Location location;
 
     /**
-     * Constructor for objects of class Plant
+     * Constructor for objects of class Living
      */
     public Living(Field field, Location location)
     {

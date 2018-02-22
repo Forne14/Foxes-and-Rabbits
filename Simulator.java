@@ -28,8 +28,6 @@ public class Simulator
     private static final double OAKTREE_CREATION_PROBABILITY = 0.04;
     private static final String DAY = "Day Time";
     private static final String NIGHT = "Night Time";
-    private static final String RAINING = "It is raining";
-    private static final String SUNNY = "It is sunny";
     private static String currentTimeOfDay; 
     private static String weather;
     
@@ -103,6 +101,7 @@ public class Simulator
          String w = weathersPossible.get(weatherIndex);
          return w;
     }
+        
     /***
      *  this meathod sets the weather
      *  @params w the weather to be added
@@ -111,6 +110,7 @@ public class Simulator
     {
         return weather = w;
     }
+    
     /***
      * fills weathersPossible list with weathers
      */
@@ -141,7 +141,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            delay(200);   // uncomment this to run more slowly
+            delay(60);   // uncomment this to run more slowly
         }
     }
     /**
@@ -165,6 +165,7 @@ public class Simulator
             setWeatherAs(generateRandomWeather());
         }
     }
+    
     /**
      * this meathod changes the time of day every 12 hours
      */
@@ -191,7 +192,6 @@ public class Simulator
         // Provide space for newborn animals.
         List<Living> newAnimals = new ArrayList<>();        
         // Let all rabbits act.
-        System.out.println(animals.size());
         for(Iterator<Living> it = animals.iterator(); it.hasNext(); ) {
             Living animal = it.next(); 
             if(! animal.isAlive()) {
@@ -204,8 +204,6 @@ public class Simulator
                
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
-
-
         view.showStatus(step, field, currentTimeOfDay, weather);
     }
         
@@ -217,7 +215,6 @@ public class Simulator
         step = 0;
         animals.clear();
         populate();
-        
         // Show the starting state in the view.
         view.showStatus(step, field, currentTimeOfDay, weather); 
     }
@@ -287,7 +284,4 @@ public class Simulator
     {
         return step; 
     }
-    
-    
-    
 }

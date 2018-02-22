@@ -19,9 +19,9 @@ public class Bear extends TheHunter
     public Bear(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field,location, gender);
-        setBreedingAge(40); 
-        setMaxAge(600);
-        setBreedingProbability(0.08);
+        setBreedingAge(20); 
+        setMaxAge(400);
+        setBreedingProbability(0.9);
         setMaxLitterSize(4);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
@@ -56,9 +56,8 @@ public class Bear extends TheHunter
             }
         }
         if(isAlive() && (currentTimeOfDay.equals("Night Time") || weather.equals("Raining"))) {
-                 System.out.println("all the bears are sleeping shhhhh");
+                 return;
            }
-           
     }
     
     /**
@@ -79,7 +78,6 @@ public class Bear extends TheHunter
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
                     foodLevel += RABBIT_FOOD_VALUE;
-                    System.out.println("Bear has eaten a rabbit");
                     return where;
                 }
             }
@@ -114,7 +112,6 @@ public class Bear extends TheHunter
                             Location loc = free.remove(0);
                             Bear young = new Bear(false, field, loc, setGender(generateRandomGender()));
                             newBears.add(young); 
-                            System.out.println("Bear has given birth");
                         }   
                     }
                 }

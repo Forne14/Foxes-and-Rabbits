@@ -24,16 +24,26 @@ public class Rabbit extends TheHunted
     public Rabbit(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        setBreedingAge(5); 
-        setMaxAge(80);
-        setBreedingProbability(0.04);
-        setMaxLitterSize(6); 
+        setBreedingAge(3); 
+        setMaxAge(60);
+        setBreedingProbability(0.8);
+        setMaxLitterSize(5); 
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
+            foodLevel = rand.nextInt(OAKTREE_FOOD_VALUE);
         }
-        
+        else {
+            setAge(0);
+            foodLevel = OAKTREE_FOOD_VALUE;
+        }
     }
     
+    /**
+     * Create a new rabbit if the genders of the two mating rabbits is opposite. 
+     * A rabbit is created with age zero (a new born) 
+     * 
+     * @param newRabbits New rabbits of age 0.
+     */
     private void giveBirth(List<Living> newRabbits) 
     {
         Field field = getField();
@@ -56,7 +66,6 @@ public class Rabbit extends TheHunted
                             Location loc = free.remove(0);
                             Rabbit young = new Rabbit(false, field, loc, setGender(generateRandomGender()), infected);
                             newRabbits.add(young); 
-                            System.out.println("Rabbit has given birth");
                         }  
                     }
                 }
@@ -64,6 +73,14 @@ public class Rabbit extends TheHunted
         }
     }
     
+    /**
+     * This is what the rabbit does most of the time: it eats oaktrees. 
+     * In the process, it might breed, die of hunger, or die of old age.
+     * @param field The field currently occupied.
+     * @param newRabbits A list to return newly born foxes.
+     * @param currentTimeOfDay The current time of the day
+     * @param weather The current weather conditions
+     */
     public void act(List<Living> newRabbits, String currentTimeOfDay, String weather)
     {
         incrementAge();
@@ -88,18 +105,11 @@ public class Rabbit extends TheHunted
                 }
             }
         }
-        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
-                 System.out.println("all the rabbits are sleeping shhhhh");
-            
-            }
-            
     }
     
- 
-    
     /**
-     * Look for Squirrels adjacent to the current location.
-     * Only the first live prey is eaten.
+     * Look for OakTrees adjacent to the current location.
+     * Only the first tree is eaten.
      * @return Where food was found, or null if it wasn't.
      */
     private Location findFood()
@@ -114,7 +124,6 @@ public class Rabbit extends TheHunted
                 OakTree tree = (OakTree) plant;
                 if(tree.isAlive()) {    
                     foodLevel += OAKTREE_FOOD_VALUE;
-                    System.out.println("Rabbit has eaten");
                     return where;
                 }
             }

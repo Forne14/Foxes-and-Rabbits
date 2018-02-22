@@ -11,7 +11,7 @@ public abstract class TheHunted extends Animal
 {
     boolean infected;
     /**
-     * Constructor for objects of class Hunted
+     * Constructor for objects of class TheHunted
      */
     public TheHunted(Field field, Location location, boolean gender, boolean infected)
     {
@@ -20,16 +20,28 @@ public abstract class TheHunted extends Animal
         this.gender = gender;
     }
    
+    /**
+     * Set the boolean infected field of an animal to true or false 
+     * @param       boolean
+     */
     protected void setInfected(boolean infection)
     {
          infected = infection;
     }
     
+    /**
+     * Retrieve whether an animal is infected or not.
+     * @return       boolean
+     */
     protected boolean getInfected()
     {
         return infected;
     }
     
+    /**
+     * An infected animal searches for the animals in the surrounding fields and infects the
+     * animals that are not infected.
+     */
     protected void infect()
     {
         Field field = getField();
@@ -50,7 +62,6 @@ public abstract class TheHunted extends Animal
                     }
                }
             }
-            System.out.println("animal has infected another animal");
         }
     }
     

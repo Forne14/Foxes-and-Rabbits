@@ -11,8 +11,8 @@ public class Owl extends TheHunter
 {
     // Characteristics shared by all owl (class variables).
     
-    // number of steps a owl can go before it has to eat again.
-    private static final int SQUIRREL_FOOD_VALUE = 20;
+    // number of steps an owl can go before it has to eat again.
+    private static final int SQUIRREL_FOOD_VALUE = 15;
 
     /**
      * Constructor for objects of class owl
@@ -21,9 +21,9 @@ public class Owl extends TheHunter
     {
         super(field,location, gender);
         setBreedingAge(7); 
-        setMaxAge(235);
-        setBreedingProbability(0.8);
-        setMaxLitterSize(5);
+        setMaxAge(10);
+        setBreedingProbability(0.4);
+        setMaxLitterSize(4);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(SQUIRREL_FOOD_VALUE) ;
@@ -32,20 +32,15 @@ public class Owl extends TheHunter
             setAge(0);
             foodLevel = SQUIRREL_FOOD_VALUE;
         }
-        
-        
     }
     
     public void act(List<Living> newOwls, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
-        
         if(isAlive() && currentTimeOfDay.equals("Night Time")) {
-               
                 giveBirth(newOwls);            
                 // Move towards a source of food if found.
-                System.out.println("find owl food");
                 Location newLocation = findFood();
                 if(newLocation == null) { 
                     // No food found - try to move to a free location.
@@ -59,11 +54,6 @@ public class Owl extends TheHunter
                     // Overcrowding.
                     setDead();
                 }
-        }
-        
-        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
-            System.out.println("all the Owls are sleeping shhhhh");
-            giveBirth(newOwls);
         }
     }
     
@@ -85,7 +75,6 @@ public class Owl extends TheHunter
                 if(squirrel.isAlive()) { 
                     squirrel.setDead();
                     foodLevel += SQUIRREL_FOOD_VALUE;
-                                        System.out.println("owl has eaten a squirrel");
                     return where;
                 }
             }
@@ -115,7 +104,6 @@ public class Owl extends TheHunter
                             Location loc = free.remove(0);
                             Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
                             newOwls.add(young); 
-                            System.out.println("Owl has given birth");
                         }  
                     }
                 }

@@ -10,11 +10,11 @@ import java.util.Random;
 public abstract class Plant extends Living
 {
     // The age to which a fox can live
-    protected static int MAX_AGE;
+    private static int MAX_AGE;
     // A shared random number generator to control breeding.
     protected static Random rand = Randomizer.getRandom();
     //the likelihood of a tree growing in an unocupied field.
-    protected static double GROWING_PROBABILITY;
+    private static double GROWING_PROBABILITY;
 
     /**
      * Constructor for objects of class Plant
@@ -33,6 +33,16 @@ public abstract class Plant extends Living
     public double getGrowingProbability()
     {
         return GROWING_PROBABILITY;
+    }
+    
+     public void setMaxAge(int age)
+    {
+        MAX_AGE = age;
+    }
+    
+    public void setGrowingProbability(double prob)
+    {
+        GROWING_PROBABILITY = prob;
     }
     
         /**

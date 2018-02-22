@@ -26,10 +26,11 @@ public class OakTree extends Plant
     public OakTree(boolean randomAge, Field field, Location location)
     {
         super(field, location);
-        MAX_AGE = 500;
-        GROWING_PROBABILITY = 0.001; 
+        setMaxAge(5000);
+        setGrowingProbability(0.001);
+        
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            age = rand.nextInt(getMaxAge());
         }
         else {
             age = 0;
@@ -62,7 +63,8 @@ public class OakTree extends Plant
                 setDead();
             }
             if(isAlive() && weather.equals("Raining")){
-                GROWING_PROBABILITY = 2 * GROWING_PROBABILITY;
+                double prob = getGrowingProbability();
+                prob = 2 * getGrowingProbability();
             }
         }
     }
@@ -89,7 +91,7 @@ public class OakTree extends Plant
     private int plantTree()
     {
         int births = 0;
-        if(rand.nextDouble() <= GROWING_PROBABILITY) {
+        if(rand.nextDouble() <= getGrowingProbability()) {
             births = 1;
         }
         return births;
@@ -101,7 +103,7 @@ public class OakTree extends Plant
     private void incrementAge()
     {
         age++;
-        if(age > MAX_AGE) {
+        if(age > getMaxAge()) {
             setDead();
         }
     }
