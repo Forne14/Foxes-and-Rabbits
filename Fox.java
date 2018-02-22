@@ -73,10 +73,6 @@ public class Fox extends TheHunter
                 }
             }
         }
-        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
-            System.out.println("all the Foxes are sleeping shhhhh");
-            
-        }
        
     }
 

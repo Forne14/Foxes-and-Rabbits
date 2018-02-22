@@ -43,7 +43,7 @@ public class Simulator
     private SimulatorView view;
     protected static Random rand = new Random();
     
-    ArrayList<String> weathersPossible = new ArrayList<String>();
+    ArrayList<String> weathersPossible;
     
     /**
      * Construct a simulation field with default size.
@@ -51,9 +51,7 @@ public class Simulator
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
-        weathersPossible.add("Rainy");
-        weathersPossible.add("Foggy");
-        weathersPossible.add("Windy");
+
     }
     
     /**
@@ -72,17 +70,57 @@ public class Simulator
         
         animals = new ArrayList<>();
         field = new Field(depth, width);
+        weathersPossible = new ArrayList<>();
+        view = new SimulatorView(depth, width);
 
         // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width);
+        createViews();
+        // Setup a valid starting point.
+        reset();
+        fillWeatherList();
+    }
+    /***
+     * this meathod creates the viewCikir
+     */
+    public void createViews()
+    {
+                
         view.setColor(Rabbit.class, Color.BLUE);
         view.setColor(Fox.class, Color.ORANGE);
         view.setColor(Bear.class, Color.BLACK);
         view.setColor(Owl.class, Color.GRAY);
         view.setColor(Squirrel.class, Color.RED);
         view.setColor(OakTree.class, Color.GREEN);
-        // Setup a valid starting point.
-        reset();
+    }
+    
+    /***
+     * this meathod generates a random weather from the list 
+     * and returns it as w
+     */
+    public String generateRandomWeather()
+    {
+         int weatherIndex = rand.nextInt(weathersPossible.size());
+         String w = weathersPossible.get(weatherIndex);
+         return w;
+    }
+    /***
+     *  this meathod sets the weather
+     *  @params w the weather to be added
+     */
+    public String setWeatherAs(String w)
+    {
+        return weather = w;
+    }
+    /***
+     * fills weathersPossible list with weathers
+     */
+    public void fillWeatherList()
+    {
+        weathersPossible.add("Rainy");
+        weathersPossible.add("Foggy");
+        weathersPossible.add("Windy");
+        weathersPossible.add("Sunny");
+        
     }
     
     /**
@@ -106,6 +144,39 @@ public class Simulator
             delay(200);   // uncomment this to run more slowly
         }
     }
+    /**
+     * this meathod changes the weather field
+     */
+    private void simulateChangeInWeather()
+    {
+        int n= rand.nextInt(60);
+        int m = rand.nextInt(60);
+        if(!((n == 0)||(m == 0)))
+        {
+            if(step % n < m){
+                setWeatherAs(generateRandomWeather());
+            }
+            else{
+                setWeatherAs(generateRandomWeather());
+            }
+        }
+        else
+        {
+            setWeatherAs(generateRandomWeather());
+        }
+    }
+    /**
+     * this meathod changes the time of day every 12 hours
+     */
+    private void simulateDayCycle()
+    {
+        if (step % 24 < 12) {
+            currentTimeOfDay = DAY;
+        }
+        else { 
+            currentTimeOfDay = NIGHT;
+        }
+    }
     
     /**
      * Run the simulation from its current state for a single step.
@@ -115,21 +186,8 @@ public class Simulator
     public void simulateOneStep()
     {
         step++;
-        
-        if (step % 24 < 12) {
-            currentTimeOfDay = DAY;
-        }
-        else { 
-            currentTimeOfDay = NIGHT;
-        }
-        int  n = rand.nextInt(2);
-        if(step % 60 < 30){
-            weather = weathersPossible.get(n);
-        }
-        else{
-            weather = SUNNY;
-        }
-
+        simulateDayCycle();
+        simulateChangeInWeather();
         // Provide space for newborn animals.
         List<Living> newAnimals = new ArrayList<>();        
         // Let all rabbits act.
@@ -146,7 +204,7 @@ public class Simulator
                
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
-        
+
 
         view.showStatus(step, field, currentTimeOfDay, weather);
     }
