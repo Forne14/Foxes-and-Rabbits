@@ -239,13 +239,13 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                    Location location = new Location(row, col);
-                   Rabbit rabbit = new Rabbit(true, field, location, rand.nextBoolean(), true);
+                   Rabbit rabbit = new Rabbit(true, field, location, rand.nextBoolean(), rand.nextBoolean());
                    animals.add(rabbit);
                 }
                 else if(rand.nextDouble()<= SQUIRREL_CREATION_PROBABILITY)
                 {
                     Location location = new Location(row, col);
-                    Squirrel squirrel = new Squirrel(true, field, location, rand.nextBoolean(), true);
+                    Squirrel squirrel = new Squirrel(true, field, location, rand.nextBoolean(), rand.nextBoolean());
                     animals.add(squirrel);
                 }
                 else if(rand.nextDouble()<= OWL_CREATION_PROBABILITY)
