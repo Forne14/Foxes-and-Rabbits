@@ -102,7 +102,7 @@ public class Simulator
      */
     public String generateRandomWeather()
     {
-         int weatherIndex = (rand.nextInt(weathersPossible.size())-1); //get a random number from 0 up to the max size of the index
+         int weatherIndex = (rand.nextInt(weathersPossible.size())); //get a random number from 0 up to the max size of the index
          String w = weathersPossible.get(weatherIndex); //return a String w from the list
          return w;
     }
