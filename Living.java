@@ -1,10 +1,12 @@
 import java.util.List;
 import java.util.Iterator;
 /**
- * Write a description of class Living here.
+ * This class is the highest level superclass for all living things simulated.
+ * a living object has a location and a field
+ * a living object is alive or dead and should act
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public abstract class Living
 {
@@ -17,6 +19,8 @@ public abstract class Living
 
     /**
      * Constructor for objects of class Living
+     * @param field the field of the object
+     * @param location the location of the object
      */
     public Living(Field field, Location location)
     {

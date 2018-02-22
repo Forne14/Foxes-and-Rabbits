@@ -2,16 +2,16 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 /**
- * Write a description of class Predator here.
+ * this is a subclass of animal and is a superclass for all predatory animals
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @Author Yassine Lutumba and Miona Milenkovic
+ * @2018.02.22
  */
 public abstract class TheHunter extends Animal
 {
 
     /**
-     * Constructor for objects of class Predator
+     * Constructor for objects of class TheHunter
      */
     public TheHunter(Field field, Location location, boolean gender)
     {

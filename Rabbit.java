@@ -5,8 +5,8 @@ import java.util.Iterator;
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class Rabbit extends TheHunted
  

@@ -11,22 +11,24 @@ import java.util.Map;
  * Colors for each type of species can be defined using the
  * setColor method.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class SimulatorView extends JFrame
 {
     // Colors used for empty locations.
-    private static final Color EMPTY_COLOR = Color.white;
+    private static final Color EMPTY_COLOR = Color.white; 
 
     // Color used for objects that have no defined color.
     private static final Color UNKNOWN_COLOR = Color.gray;
-
+    //string constants used in the label of the gui
     private final String STEP_PREFIX = "Step: ";
     private final String TIME_OF_DAY = "Time of day: ";
     private final String CURRENT_WEATHER = "Weather: ";
     private final String POPULATION_PREFIX = "Population: ";
+    
     private JLabel stepLabel, population, infoLabel, timeLabel;
+    
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
@@ -77,6 +79,7 @@ public class SimulatorView extends JFrame
 
     /**
      * Display a short information label at the top of the window.
+     * @param text the text to be added
      */
     public void setInfoText(String text)
     {
@@ -147,8 +150,7 @@ public class SimulatorView extends JFrame
      * a nested class (a class defined inside a class) which
      * defines a custom component for the user interface. This
      * component displays the field.
-     * This is rather advanced GUI stuff - you can ignore this 
-     * for your project if you like.
+
      */
     private class FieldView extends JPanel
     {

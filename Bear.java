@@ -2,10 +2,12 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 /**
- * Write a description of class Bear here.
+ * this class represents a model of a bear.
+ * a bear is a predatory animal which is born, eats, gives birth and dies
+ * it is a subclass of animal, theHunter, and Living
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class Bear extends TheHunter
 {
@@ -33,12 +35,19 @@ public class Bear extends TheHunter
         }
         
     }
-    
+    /**
+     * lets a bear act
+     * it will age, get hungry and give birth in the day time
+     * a bear will not act in the rain
+     * @param newBears the list of newBears to be added
+     * @param currentTimeOfDay the current time of the day
+     * @weather the current weather being simulated
+     */
     public void act(List<Living> newBears, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
-        if(isAlive() && currentTimeOfDay.equals("Day Time")) {
+        if(isAlive() && currentTimeOfDay.equals("Day Time") && !(weather.equals("Rainy"))) {
             giveBirth(newBears);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
@@ -55,9 +64,6 @@ public class Bear extends TheHunter
                 setDead();
             }
         }
-        if(isAlive() && (currentTimeOfDay.equals("Night Time") || weather.equals("Raining"))) {
-                 return;
-           }
     }
     
     /**
@@ -117,7 +123,5 @@ public class Bear extends TheHunter
                 }
             }     
         }
-    }
-    
-    
+    }  
 }

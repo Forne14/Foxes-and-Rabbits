@@ -5,8 +5,8 @@ import java.util.Iterator;
  * A simple model of a squirrel.
  * Squirrels age, move, breed, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Yassine Lutumba and Yassine Lutumba
+ * @version 2018.02.22
  */
 public class Squirrel extends TheHunted
 {
@@ -35,12 +35,19 @@ public class Squirrel extends TheHunted
             foodLevel = OAKTREE_FOOD_VALUE;
         }
     }
-    
+    /**
+     * lets this Squirrel act. a squirrel will age, grow in hunger,
+     * infect other animals or will become more prone to breeding depending on the weather
+     * @param newSquirrels the list of new squirrels to be added
+     * @param currentTimeOfDay the current time of day
+     * @param weather the weather
+     */
     public void act(List<Living> newSquirrels, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
         infect();
+        increaseRoast(weather);
         if(isAlive() && currentTimeOfDay.equals("Day Time")) {
             giveBirth(newSquirrels);            
             // Move towards a source of food if found.
@@ -61,6 +68,18 @@ public class Squirrel extends TheHunted
             
     }
     
+        /**
+     * this meathod changes the breeding probability of a squirrel based on the weather
+     * @params w the weather which this is based off
+     */
+    private void increaseRoast(String w)
+    {
+        if(w.equals("Sunny")){
+            double n = getBreedingProbability();
+            setBreedingProbability(n * 0.5);
+        }
+    }
+
     /**
      * Look for Squirrels adjacent to the current location.
      * Only the first live prey is eaten.
@@ -84,7 +103,11 @@ public class Squirrel extends TheHunted
         }
         return null;
     }
-    
+    /**
+     * lets the squirrel give birth
+     * squirrel can only give birth if they are of opposite genders
+     * @param newSquirrel a list containing newly born owls
+     */
     private void giveBirth(List<Living> newSquirrels) 
     {
         Field field = getField();

@@ -6,8 +6,8 @@ import java.util.Random;
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class Fox extends TheHunter
 
@@ -54,22 +54,24 @@ public class Fox extends TheHunter
     {
         incrementAge();
         incrementHunger();
-        if(isAlive() && currentTimeOfDay.equals("Night Time")){
-            if(isAlive()) {
-                giveBirth(newFoxes);            
-                // Move towards a source of food if found.
-                Location newLocation = findFood();
-                if(newLocation == null) { 
-                    // No food found - try to move to a free location.
-                    newLocation = getField().freeAdjacentLocation(getLocation());
-                }
-                // See if it was possible to move.
-                if(newLocation != null) {
-                    setLocation(newLocation);
-                }
-                else {
-                    // Overcrowding.
-                    setDead();
+        if(!(weather.equals("Foggy"))){
+            if(isAlive() && currentTimeOfDay.equals("Night Time")){
+                if(isAlive()) {
+                    giveBirth(newFoxes);            
+                    // Move towards a source of food if found.
+                    Location newLocation = findFood();
+                    if(newLocation == null) { 
+                        // No food found - try to move to a free location.
+                        newLocation = getField().freeAdjacentLocation(getLocation());
+                    }
+                    // See if it was possible to move.
+                    if(newLocation != null) {
+                        setLocation(newLocation);
+                    }
+                    else {
+                        // Overcrowding.
+                        setDead();
+                    }
                 }
             }
         }
@@ -100,7 +102,11 @@ public class Fox extends TheHunter
         }
         return null;
     }
-
+    /**
+     * lets the fox give birth
+     * fox can only give birth if they are of opposite genders
+     * @param newFoxes a list containing newly born owls
+     */
     private void giveBirth(List<Living> newFoxes) 
     {
         Field field = getField();

@@ -2,16 +2,20 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 /**
- * Write a description of class Hunted here.
+ * This is a super class for the prey animals of this simulation
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public abstract class TheHunted extends Animal
 {
-    boolean infected;
+    boolean infected; //TheHunted animals carry diseases
     /**
      * Constructor for objects of class TheHunted
+     * @param field
+     * @param location
+     * @param gender
+     * @param infected
      */
     public TheHunted(Field field, Location location, boolean gender, boolean infected)
     {
@@ -22,7 +26,7 @@ public abstract class TheHunted extends Animal
    
     /**
      * Set the boolean infected field of an animal to true or false 
-     * @param       boolean
+     * @param infection the infection to be added
      */
     protected void setInfected(boolean infection)
     {
@@ -31,7 +35,7 @@ public abstract class TheHunted extends Animal
     
     /**
      * Retrieve whether an animal is infected or not.
-     * @return       boolean
+     * @return  infected
      */
     protected boolean getInfected()
     {

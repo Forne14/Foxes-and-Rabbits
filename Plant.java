@@ -2,10 +2,10 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 /**
- * Write a description of class Plant here.
+ * this class is a model of plants. it is a subclass of living
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public abstract class Plant extends Living
 {
@@ -24,28 +24,38 @@ public abstract class Plant extends Living
     {
         super(field, location);
     }
-    
+    /**
+     * @return the maximum age of this plant
+     */
     public int getMaxAge()
     {
         return MAX_AGE;
     }
-    
+    /**
+     * @return the growing probability of this plant
+     */
     public double getGrowingProbability()
     {
         return GROWING_PROBABILITY;
     }
-    
+    /***
+     *  sets the maximum age of this plant
+     *  @param age the age to be set
+     */
      public void setMaxAge(int age)
     {
         MAX_AGE = age;
     }
-    
+    /**
+     * sets the growing probability of this plant
+     * @param prob the probability to be set to
+     */
     public void setGrowingProbability(double prob)
     {
         GROWING_PROBABILITY = prob;
     }
     
-        /**
+    /**
      * Return the animal's location.
      * @return The animal's location.
      */

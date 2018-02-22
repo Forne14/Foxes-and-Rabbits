@@ -6,10 +6,9 @@ import java.awt.Color;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
- * containing rabbits and foxes.
- * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * containing rabbits, foxes, bears, owls and squirrels
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class Simulator 
 {
@@ -22,12 +21,18 @@ public class Simulator
     private static final double FOX_CREATION_PROBABILITY = 0.04;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.05;  
+    // The probability that a Squirrel will be created in any given grid position.
     private static final double SQUIRREL_CREATION_PROBABILITY = 0.08;
+    // The probability that a Bear will be created in any given grid position.
     private static final double BEAR_CREATION_PROBABILITY = 0.04;
+    // The probability that a Owl will be created in any given grid position.
     private static final double OWL_CREATION_PROBABILITY = 0.06;
+    // The probability that a OakTree will be created in any given grid position.
     private static final double OAKTREE_CREATION_PROBABILITY = 0.04;
+    
     private static final String DAY = "Day Time";
     private static final String NIGHT = "Night Time";
+    
     private static String currentTimeOfDay; 
     private static String weather;
     
@@ -66,23 +71,23 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        animals = new ArrayList<>();
-        field = new Field(depth, width);
-        weathersPossible = new ArrayList<>();
-        view = new SimulatorView(depth, width);
+        animals = new ArrayList<>(); //create a new array list for animals
+        field = new Field(depth, width); //create a field
+        weathersPossible = new ArrayList<>(); //create a new array list for the types of weather possible
+        view = new SimulatorView(depth, width); //create a new simulator view
 
         // Create a view of the state of each location in the field.
         createViews();
         // Setup a valid starting point.
         reset();
-        fillWeatherList();
+        fillWeatherList(); //fills array list with weather
     }
     /***
-     * this meathod creates the viewCikir
+     * this meathod creates the views
      */
     public void createViews()
     {
-                
+        //self explanatory code
         view.setColor(Rabbit.class, Color.BLUE);
         view.setColor(Fox.class, Color.ORANGE);
         view.setColor(Bear.class, Color.BLACK);
@@ -93,12 +98,12 @@ public class Simulator
     
     /***
      * this meathod generates a random weather from the list 
-     * and returns it as w
+     * and returns it as a String w
      */
     public String generateRandomWeather()
     {
-         int weatherIndex = rand.nextInt(weathersPossible.size());
-         String w = weathersPossible.get(weatherIndex);
+         int weatherIndex = (rand.nextInt(weathersPossible.size())-1); //get a random number from 0 up to the max size of the index
+         String w = weathersPossible.get(weatherIndex); //return a String w from the list
          return w;
     }
         
@@ -116,6 +121,7 @@ public class Simulator
      */
     public void fillWeatherList()
     {
+        //self explanatory code
         weathersPossible.add("Rainy");
         weathersPossible.add("Foggy");
         weathersPossible.add("Windy");
@@ -149,15 +155,12 @@ public class Simulator
      */
     private void simulateChangeInWeather()
     {
-        int n= rand.nextInt(60);
-        int m = rand.nextInt(60);
-        if(!((n == 0)||(m == 0)))
+        int n= rand.nextInt(60); // let n be a random number from 0 to 60
+        int m = rand.nextInt(60); // let m be a random number from 0 to 60
+        if(!((n == 0)||(m == 0))) //n or m cannot be 0
         {
             if(step % n < m){
-                setWeatherAs(generateRandomWeather());
-            }
-            else{
-                setWeatherAs(generateRandomWeather());
+                setWeatherAs(generateRandomWeather()); //change the weather
             }
         }
         else
@@ -167,7 +170,7 @@ public class Simulator
     }
     
     /**
-     * this meathod changes the time of day every 12 hours
+     * this meathod cycles between day and night every 12 steps
      */
     private void simulateDayCycle()
     {
@@ -186,9 +189,9 @@ public class Simulator
      */
     public void simulateOneStep()
     {
-        step++;
-        simulateDayCycle();
-        simulateChangeInWeather();
+        step++; //increment step
+        simulateDayCycle(); //day cycle
+        simulateChangeInWeather(); // change weather
         // Provide space for newborn animals.
         List<Living> newAnimals = new ArrayList<>();        
         // Let all rabbits act.
@@ -212,6 +215,7 @@ public class Simulator
      */
     public void reset()
     {
+        //self explanatory code
         step = 0;
         animals.clear();
         populate();
@@ -280,6 +284,9 @@ public class Simulator
         }
     }
     
+    /**
+     * this meathod returns the current number of steps elapsed
+     */
     public int getStep()
     {
         return step; 

@@ -1,6 +1,12 @@
-Project: foxes-and-rabbits-v2
-Authors: Michael Kölling and David J. Barnes
+Project: foxes-and-rabbits-v4
+Authors: Yassine Lutumba and Miona Milenkovic
 
+-------------------------------------------------------------------
+This project was written largely by Yassine Lutumba and Miona Milenkovic
+as part of a university assignment. This program simulates an ecosystem
+which is inhabited by Foxes, Rabbits, Owls, Bears, Squirrels, Rabbits and Trees
+
+-------------------------------------------------------------------
 This project is part of the material for chapter 10 of the book
 
    Objects First with Java - A Practical Introduction using BlueJ

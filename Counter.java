@@ -6,8 +6,8 @@ import java.awt.Color;
  * many participants of this type currently exist within 
  * the simulation.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class Counter
 {

@@ -3,23 +3,22 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
+ * A simple model of an Oak Tree.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class OakTree extends Plant
 {
     
-    // The fox's age.
+    // The Oak Tree's age.
     private int age;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
+     * Create an Oaktree. An Oaktree can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
+     * @param randomAge If true, the Oak Tree will have random age.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
@@ -38,11 +37,10 @@ public class OakTree extends Plant
     }
     
     /**
-     * This is what the fox does most of the time: it hunts for
-     * rabbits. In the process, it might breed, die of hunger,
-     * or die of old age.
+     * This is what the Oak Tree does most of the time
+     * it will look for new space to spread seeds to or die of old age.
      * @param field The field currently occupied.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newOak Treees A list to return newly born Oak Treees.
      */
     public void act(List<Living> newOakTrees, String currentTimeOfDay, String weather)
     {
@@ -62,6 +60,7 @@ public class OakTree extends Plant
                 // Overcrowding.
                 setDead();
             }
+            //trees grow better in the rain
             if(isAlive() && weather.equals("Raining")){
                 double prob = getGrowingProbability();
                 prob = 2 * getGrowingProbability();
@@ -70,9 +69,9 @@ public class OakTree extends Plant
     }
     
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this Tree is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newRabbits A list to return newly born rabbits.
+     * @param newOakTree A list to return newly born trees.
      */
     private void treeGrow(List<Living> newOakTree)
     {
@@ -87,18 +86,21 @@ public class OakTree extends Plant
             newOakTree.add(young);
         }
     }
-    
+    /**
+     * Generate a number representing the number of births,
+     * if it can breed.
+     */
     private int plantTree()
     {
         int births = 0;
         if(rand.nextDouble() <= getGrowingProbability()) {
-            births = 1;
+            births = 2;
         }
         return births;
     }
      
     /**
-     * Increase the age. This could result in the fox's death.
+     * Increase the age. This could result in the Oak Tree's death.
      */
     private void incrementAge()
     {

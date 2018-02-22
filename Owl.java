@@ -2,10 +2,11 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Random; 
 /**
- * Write a description of class Owl here.
+ * This class is a model representation of an Owl. Owls are nocturnal predators which eat squirrels or rabbits
+ * owls are born, age, give birth, eat and die.
  *
- * @author (your name)
- * @version (a version number or a date) 
+ * @Author Yassine Lutumba and Miona Milenkovic
+ * @version 2018.02.22
  */
 public class Owl extends TheHunter 
 {
@@ -34,31 +35,39 @@ public class Owl extends TheHunter
         }
     }
     
+    /**
+     * this owl acts. its age increases
+     * its hunger increases
+     * if the weather is windy it will not do anything.
+     * if its night time it will act.
+     */
     public void act(List<Living> newOwls, String currentTimeOfDay, String weather)
     {
         incrementAge();
         incrementHunger();
-        if(isAlive() && currentTimeOfDay.equals("Night Time")) {
-                giveBirth(newOwls);            
-                // Move towards a source of food if found.
-                Location newLocation = findFood();
-                if(newLocation == null) { 
-                    // No food found - try to move to a free location.
-                    newLocation = getField().freeAdjacentLocation(getLocation());
-                }
-                // See if it was possible to move.
-                if(newLocation != null) {
-                     setLocation(newLocation);
-                 }
-                 else {
-                    // Overcrowding.
-                    setDead();
-                }
+        if(!(weather.equals("Windy"))){
+            if(isAlive() && currentTimeOfDay.equals("Night Time")) {
+                    giveBirth(newOwls);            
+                    // Move towards a source of food if found.
+                    Location newLocation = findFood();
+                    if(newLocation == null) { 
+                        // No food found - try to move to a free location.
+                        newLocation = getField().freeAdjacentLocation(getLocation());
+                    }
+                    // See if it was possible to move.
+                    if(newLocation != null) {
+                         setLocation(newLocation);
+                     }
+                     else {
+                        // Overcrowding.
+                        setDead();
+                    }
+            }
         }
     }
     
     /**
-     * Look for Squirrels adjacent to the current location.
+     * Look for squirrels adjacent to the current location.
      * Only the first live prey is eaten.
      * @return Where food was found, or null if it wasn't.
      */
@@ -82,6 +91,11 @@ public class Owl extends TheHunter
         return null; 
     }
     
+    /**
+     * lets the owl give birth
+     * owls can only give birth if they are of opposite genders
+     * @param newOwls a list containing newly born owls
+     */
     private void giveBirth(List<Living> newOwls) 
     {
         Field field = getField();
