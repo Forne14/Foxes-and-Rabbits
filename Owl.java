@@ -116,6 +116,7 @@ public class Owl extends TheHunter
                             Location loc = free.remove(0);
                             Owl young = new Owl(false, field, loc, setGender(generateRandomGender()));
                             newOwls.add(young); 
+                            System.out.println("Owl Birth");
                         }  
                     }
                 }

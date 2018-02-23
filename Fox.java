@@ -129,6 +129,7 @@ public class Fox extends TheHunter
                             Location loc = free.remove(0);
                             Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
                             newFoxes.add(young);
+                            System.out.println("Fox birth");
                         }  
                     }
                 }
