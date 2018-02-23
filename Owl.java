@@ -13,7 +13,7 @@ public class Owl extends TheHunter
     // Characteristics shared by all owl (class variables).
     
     // number of steps an owl can go before it has to eat again.
-    private static final int SQUIRREL_FOOD_VALUE = 15;
+    private static final int SQUIRREL_FOOD_VALUE = 50;
 
     /**
      * Constructor for objects of class owl
@@ -21,10 +21,10 @@ public class Owl extends TheHunter
     public Owl(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field,location, gender);
-        setBreedingAge(7); 
-        setMaxAge(10);
-        setBreedingProbability(0.4);
-        setMaxLitterSize(4);
+        setBreedingAge(2); 
+        setMaxAge(1000);
+        setBreedingProbability(0.08);
+        setMaxLitterSize(5);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(SQUIRREL_FOOD_VALUE) ;
@@ -45,24 +45,22 @@ public class Owl extends TheHunter
     {
         incrementAge();
         incrementHunger();
-        if(!(weather.equals("Windy"))){
-            if(isAlive() && currentTimeOfDay.equals("Night Time")) {
-                    giveBirth(newOwls);            
+        if(isAlive() && currentTimeOfDay.equals("Night Time") && !(weather.equals("Windy"))) {
+               giveBirth(newOwls);            
                     // Move towards a source of food if found.
-                    Location newLocation = findFood();
-                    if(newLocation == null) { 
-                        // No food found - try to move to a free location.
-                        newLocation = getField().freeAdjacentLocation(getLocation());
-                    }
-                    // See if it was possible to move.
-                    if(newLocation != null) {
-                         setLocation(newLocation);
-                     }
-                     else {
-                        // Overcrowding.
-                        setDead();
-                    }
-            }
+               Location newLocation = findFood();
+               if(newLocation == null) { 
+                    // No food found - try to move to a free location.
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+               }
+               // See if it was possible to move.
+               if(newLocation != null) {
+                    setLocation(newLocation);
+               }
+               else {
+                    // Overcrowding.
+                    setDead();
+               }
         }
     }
     

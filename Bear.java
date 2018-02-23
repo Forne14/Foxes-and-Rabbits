@@ -13,7 +13,7 @@ public class Bear extends TheHunter
 {
     // The food value of a single fox. In effect, this is the
     // number of steps a bear can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 15;
+    private static final int RABBIT_FOOD_VALUE = 100;
 
     /**
      * Constructor for objects of class Bear
@@ -21,10 +21,10 @@ public class Bear extends TheHunter
     public Bear(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field,location, gender);
-        setBreedingAge(20); 
-        setMaxAge(400);
-        setBreedingProbability(0.9);
-        setMaxLitterSize(4);
+        setBreedingAge(5); 
+        setMaxAge(1000);
+        setBreedingProbability(0.09);
+        setMaxLitterSize(7);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE) ;

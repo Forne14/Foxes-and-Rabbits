@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class Rabbit extends TheHunted
  
 {
-    private static final int OAKTREE_FOOD_VALUE = 20;
+    private static final int OAKTREE_FOOD_VALUE = 1000;
     protected boolean infected;
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -24,10 +24,10 @@ public class Rabbit extends TheHunted
     public Rabbit(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        setBreedingAge(3); 
-        setMaxAge(60);
-        setBreedingProbability(0.8);
-        setMaxLitterSize(5); 
+        setBreedingAge(5); 
+        setMaxAge(1000);
+        setBreedingProbability(0.09);
+        setMaxLitterSize(10); 
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(OAKTREE_FOOD_VALUE);
@@ -66,6 +66,7 @@ public class Rabbit extends TheHunted
                             Location loc = free.remove(0);
                             Rabbit young = new Rabbit(false, field, loc, setGender(generateRandomGender()), infected);
                             newRabbits.add(young); 
+                            System.out.println("rabbit birth");
                         }  
                     }
                 }
@@ -87,7 +88,7 @@ public class Rabbit extends TheHunted
         incrementHunger(); 
         infect();
         if(isAlive() && currentTimeOfDay.equals("Day Time")) {
-            if(isAlive()){
+            
                 giveBirth(newRabbits);            
                 // Move towards a source of food if found.
                 Location newLocation = findFood();
@@ -103,7 +104,6 @@ public class Rabbit extends TheHunted
                     // Overcrowding.
                     setDead();
                 }
-            }
         }
     }
     

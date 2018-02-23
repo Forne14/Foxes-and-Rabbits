@@ -18,17 +18,17 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.04;
+    private static final double FOX_CREATION_PROBABILITY = 0.08;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.05;  
+    private static final double RABBIT_CREATION_PROBABILITY = 0.3;  
     // The probability that a Squirrel will be created in any given grid position.
-    private static final double SQUIRREL_CREATION_PROBABILITY = 0.08;
+    private static final double SQUIRREL_CREATION_PROBABILITY = 0.09;
     // The probability that a Bear will be created in any given grid position.
-    private static final double BEAR_CREATION_PROBABILITY = 0.04;
+    private static final double BEAR_CREATION_PROBABILITY = 0.06;
     // The probability that a Owl will be created in any given grid position.
-    private static final double OWL_CREATION_PROBABILITY = 0.06;
+    private static final double OWL_CREATION_PROBABILITY = 0.03;
     // The probability that a OakTree will be created in any given grid position.
-    private static final double OAKTREE_CREATION_PROBABILITY = 0.04;
+    private static final double OAKTREE_CREATION_PROBABILITY = 0.075;
     
     private static final String DAY = "Day Time";
     private static final String NIGHT = "Night Time";
@@ -147,7 +147,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            delay(60);   // uncomment this to run more slowly
+            //delay(60);   // uncomment this to run more slowly
         }
     }
     /**

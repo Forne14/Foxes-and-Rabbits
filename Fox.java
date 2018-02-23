@@ -14,7 +14,7 @@ public class Fox extends TheHunter
 {
     // Characteristics shared by all foxes (class variables).
     
-    private static final int RABBIT_FOOD_VALUE = 20;
+    private static final int RABBIT_FOOD_VALUE = 50;
     // Individual characteristics (instance fields).
 
     /**
@@ -28,10 +28,10 @@ public class Fox extends TheHunter
     public Fox(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field, location, gender);   
-        setBreedingAge(6); 
-        setMaxAge(150);
-        setBreedingProbability(0.3);
-        setMaxLitterSize(5);
+        setBreedingAge(5); 
+        setMaxAge(1000);
+        setBreedingProbability(0.09);
+        setMaxLitterSize(7);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
@@ -56,7 +56,7 @@ public class Fox extends TheHunter
         incrementHunger();
         if(!(weather.equals("Foggy"))){
             if(isAlive() && currentTimeOfDay.equals("Night Time")){
-                if(isAlive()) {
+                 
                     giveBirth(newFoxes);            
                     // Move towards a source of food if found.
                     Location newLocation = findFood();
@@ -72,7 +72,7 @@ public class Fox extends TheHunter
                         // Overcrowding.
                         setDead();
                     }
-                }
+                
             }
         }
        

@@ -10,7 +10,7 @@ import java.util.Iterator;
  */
 public class Squirrel extends TheHunted
 {
-    private static final int OAKTREE_FOOD_VALUE = 20;
+    private static final int OAKTREE_FOOD_VALUE = 1000;
     /**
      * Create a new squirrel. A squirrel may be created with age
      * zero (a new born) or with a random age.
@@ -22,10 +22,10 @@ public class Squirrel extends TheHunted
     public Squirrel(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        setMaxAge(45);
+        setMaxAge(1000);
         setBreedingAge(1); 
-        setBreedingProbability(0.4);
-        setMaxLitterSize(6);
+        setBreedingProbability(0.9);
+        setMaxLitterSize(10);
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));
                  foodLevel = rand.nextInt(OAKTREE_FOOD_VALUE);

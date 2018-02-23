@@ -10,10 +10,8 @@ import java.util.Random;
  */
 public class OakTree extends Plant
 {
-    
     // The Oak Tree's age.
     private int age;
-
     /**
      * Create an Oaktree. An Oaktree can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
@@ -26,7 +24,7 @@ public class OakTree extends Plant
     {
         super(field, location);
         setMaxAge(5000);
-        setGrowingProbability(0.001);
+        setGrowingProbability(0.01);
         
         if(randomAge) {
             age = rand.nextInt(getMaxAge());
