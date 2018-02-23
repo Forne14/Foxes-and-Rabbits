@@ -66,7 +66,6 @@ public class Rabbit extends TheHunted
                             Location loc = free.remove(0);
                             Rabbit young = new Rabbit(false, field, loc, setGender(generateRandomGender()), infected);
                             newRabbits.add(young); 
-                            System.out.println("rabbit birth");
                         }  
                     }
                 }

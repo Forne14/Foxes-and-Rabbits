@@ -21,7 +21,7 @@ public class Bear extends TheHunter
     public Bear(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field,location, gender);
-        setBreedingAge(5); 
+        setBreedingAge(2); 
         setMaxAge(1000);
         setBreedingProbability(0.09);
         setMaxLitterSize(7);
@@ -33,7 +33,6 @@ public class Bear extends TheHunter
             setAge(0);
             foodLevel = RABBIT_FOOD_VALUE;
         }
-        
     }
     /**
      * lets a bear act
@@ -118,6 +117,7 @@ public class Bear extends TheHunter
                             Location loc = free.remove(0);
                             Bear young = new Bear(false, field, loc, setGender(generateRandomGender()));
                             newBears.add(young); 
+                            System.out.println("bear brith");
                         }   
                     }
                 }
