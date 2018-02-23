@@ -23,8 +23,8 @@ public class OakTree extends Plant
     public OakTree(boolean randomAge, Field field, Location location)
     {
         super(field, location);
-        setMaxAge(5000);
-        setGrowingProbability(0.01);
+        setMaxAge(500);
+        setGrowingProbability(0.005);
         
         if(randomAge) {
             age = rand.nextInt(getMaxAge());

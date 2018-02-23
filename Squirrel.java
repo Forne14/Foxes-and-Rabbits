@@ -22,8 +22,8 @@ public class Squirrel extends TheHunted
     public Squirrel(boolean randomAge, Field field, Location location, boolean gender, boolean infected)
     {
         super(field, location, gender, infected);
-        setMaxAge(1000);
-        setBreedingAge(1); 
+        setMaxAge(250);
+        setBreedingAge(6); 
         setBreedingProbability(0.9);
         setMaxLitterSize(10);
         if(randomAge) {
@@ -130,7 +130,6 @@ public class Squirrel extends TheHunted
                             Location loc = free.remove(0);
                             Squirrel young = new Squirrel(false, field, loc, setGender(generateRandomGender()), infected);
                             newSquirrels.add(young); 
-                            System.out.println("Squirrel birth");
                         }  
                     } 
                 }

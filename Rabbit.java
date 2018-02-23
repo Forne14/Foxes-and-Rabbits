@@ -26,7 +26,7 @@ public class Rabbit extends TheHunted
         super(field, location, gender, infected);
         setBreedingAge(5); 
         setMaxAge(1000);
-        setBreedingProbability(0.09);
+        setBreedingProbability(0.07);
         setMaxLitterSize(10); 
         if(randomAge) {
             setAge(rand.nextInt(getMaxAge()));

@@ -20,13 +20,13 @@ public class Simulator
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.08;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.3;  
+    private static final double RABBIT_CREATION_PROBABILITY = 0.4;  
     // The probability that a Squirrel will be created in any given grid position.
     private static final double SQUIRREL_CREATION_PROBABILITY = 0.09;
     // The probability that a Bear will be created in any given grid position.
     private static final double BEAR_CREATION_PROBABILITY = 0.06;
     // The probability that a Owl will be created in any given grid position.
-    private static final double OWL_CREATION_PROBABILITY = 0.03;
+    private static final double OWL_CREATION_PROBABILITY = 0.05;
     // The probability that a OakTree will be created in any given grid position.
     private static final double OAKTREE_CREATION_PROBABILITY = 0.075;
     

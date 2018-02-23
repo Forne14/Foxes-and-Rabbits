@@ -14,7 +14,7 @@ public class Fox extends TheHunter
 {
     // Characteristics shared by all foxes (class variables).
     
-    private static final int RABBIT_FOOD_VALUE = 50;
+    private static final int RABBIT_FOOD_VALUE = 300;
     // Individual characteristics (instance fields).
 
     /**
@@ -54,28 +54,23 @@ public class Fox extends TheHunter
     {
         incrementAge();
         incrementHunger();
-        if(!(weather.equals("Foggy"))){
-            if(isAlive() && currentTimeOfDay.equals("Night Time")){
-                 
-                    giveBirth(newFoxes);            
-                    // Move towards a source of food if found.
-                    Location newLocation = findFood();
-                    if(newLocation == null) { 
-                        // No food found - try to move to a free location.
-                        newLocation = getField().freeAdjacentLocation(getLocation());
-                    }
-                    // See if it was possible to move.
-                    if(newLocation != null) {
-                        setLocation(newLocation);
-                    }
-                    else {
-                        // Overcrowding.
-                        setDead();
-                    }
-                
-            }
+            if(isAlive() && currentTimeOfDay.equals("Night Time") && !(weather.equals("Foggy"))){
+               giveBirth(newFoxes);            
+               // Move towards a source of food if found.
+               Location newLocation = findFood();
+               if(newLocation == null) { 
+                   // No food found - try to move to a free location.
+                   newLocation = getField().freeAdjacentLocation(getLocation());
+               }
+               // See if it was possible to move.
+               if(newLocation != null) {
+                  setLocation(newLocation);
+               }
+               else {
+                  // Overcrowding.
+                  setDead();
+               }
         }
-       
     }
 
     /**
@@ -129,7 +124,6 @@ public class Fox extends TheHunter
                             Location loc = free.remove(0);
                             Fox young = new Fox(false, field, loc, setGender(generateRandomGender()));
                             newFoxes.add(young);
-                            System.out.println("Fox birth");
                         }  
                     }
                 }
