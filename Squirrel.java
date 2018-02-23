@@ -130,6 +130,7 @@ public class Squirrel extends TheHunted
                             Location loc = free.remove(0);
                             Squirrel young = new Squirrel(false, field, loc, setGender(generateRandomGender()), infected);
                             newSquirrels.add(young); 
+                            System.out.println("Squirrel birth");
                         }  
                     } 
                 }
